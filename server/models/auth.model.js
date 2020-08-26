@@ -17,36 +17,38 @@ const userSchema = new mongoose.Schema({
     },
     hashed_password: {
         type: String,
-        trim: true,
         required: true,
     },
     salt: String,
     role: {
-        type: Number,
-        default: 'Normal'
-        // there is more type ( normal, admin ... etc);
-    },
-    resetPasswordLink: {
-        data:String,
-        default: ''
+        type: String,
+        enum: ['user', 'admin', 'master'],
+        default: 'admin'
     }
-}, { timestamps: true })
+}, { 
+    timestamps: true
+ })
 
 
 /* 가상 비밀번호 만들어서 저장하기 (hasing) */
 userSchema.virtual('password')
     .set(function(password){
-        this.password = password
-        this.salt = this.makeSalt()
-        this.hashed._password = this.encryptPassword(password)
+        this._password = password;
+        this.salt = this.makeSalt();
+        this.hashed_password = this.encryptPassword(password)
     })
-    .get(function(password){
+    .get(function(){
         return this._password;
     })
 
 
 /* userSchema 함수 모음 */
-userSchema.method = {
+userSchema.methods = {
+    /* plain 비밀번호와 hashed 비밀번호를 비교 */
+    authenticate: function (plainPassword) {
+        return this.encryptPassword(plainPassword) === this.hashed_password;
+    },
+
     /* salt 생성 */
     makeSalt: function () {
         return Math.round(new Date().valueOf() * Math.random()) + "";
@@ -64,11 +66,6 @@ userSchema.method = {
             return "";
         }
     },
-
-    /* plain 비밀번호와 hashed 비밀번호를 비교 */
-    authenticate: function (plainPassword) {
-        return this.encryptPassword(plainPassword) === this.hashed_password;
-    }
 }
 
 module.exports = mongoose.model('User', userSchema);

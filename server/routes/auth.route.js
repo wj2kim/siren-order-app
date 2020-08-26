@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-//Validation
-const { validLogin} = require('../helper/valid');
+/* validation 가져오기 */
+const { validLogin } = require('../lib/valid');
 
-// Load Controllers
+/* controller 가져오기 */
 const {
-    registerController
+    registerController,
+    loginController
 } = require('../controllers/auth.controller.js');
 
 router.post('/register', registerController)
+router.post('/login', validLogin, loginController);
 
 module.exports = router;

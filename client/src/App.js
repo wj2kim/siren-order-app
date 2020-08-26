@@ -3,7 +3,10 @@ import React from 'react';
 function App() {
   return (
     <div className="App">
-     Test
+        <div>
+          <input value="this is email"/>
+          <input value="this is password"/>
+        </div>
     </div>
   );
 }

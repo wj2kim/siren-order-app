@@ -5,10 +5,12 @@ import App from './App';
 
 ReactDOM.render(
     <BrowserRouter>
-    <Switch>
-      <Route path="/" exact render={props => <App {...props} /> }/>
-      {/* <Route path="/login" exact render={props => <Login {...props} /> }/> */}
-    </Switch>
+        <Switch>
+          <Route path="/" exact render={props => <App {...props} /> }/>
+          <Route path="/dashboard" exac
+          {/* <Route path="/login" exact render={props => <Login {...props} /> }/> */}
+          <Redirect to='/'/>
+        </Switch>
     </BrowserRouter>,
   document.getElementById('root')
 );

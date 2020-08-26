@@ -15,15 +15,15 @@ jwt -> json 포맷을 이용한 Web Token
 */
 const jwt = require('jsonwebtoken');
 
-const { errorHandler } = require('../helper/dbErrorHandling');
+const { errorHandler } = require('../lib/dbErrorHandling');
 
 
-
+/* 가입을 위한 페이지는 따로 만들지 않음 대신 POSTMAN을 이용함 */
 exports.registerController = (req, res) => {
     const { name, email, password } = req.body
     const errors = validationResult(req)
 
-    if(!error.isEmpty()){
+    if(!errors.isEmpty()){
         const firstError = errors.array().map(error => error.msg)[0];
         return res.status(422).json({
             error: firstError
@@ -39,18 +39,26 @@ exports.registerController = (req, res) => {
             }
         })
 
-        // Generate Token
-        const token = jwt.sign(
-            {
-                name,
-                email,
-                password
-            },
-            process.env.JWT_ACCOUNT_ACTIVATION,
-            {
-                expiresIn: '15m'
+        const user = new User({
+            name,
+            email,
+            password
+        });
+  
+        user.save((err, user) => {
+            if (err) {
+                console.log('Save error', errorHandler(err));
+                return res.status(401).json({
+                    errors: errorHandler(err)
+                });
+            } else {
+                return res.json({
+                    success: true,
+                    message: user,
+                    message: 'Signup success'
+                });
             }
-        )
+        });
     }
 }
 
@@ -65,7 +73,7 @@ exports.loginController = ( req, res) => {
         const firstError = errors.array().map(error => error.msg)[0]
         /* 422 Unprocessable Entity - 요청은 잘 만들어 졌지만, 문법 오류로 인하여 따를 수 없습니다. */
         return res.status(422).json({
-            error:firstError
+            errors:firstError
         });
     }else{
         /* 유저 존재 유무 확인 */
@@ -76,14 +84,14 @@ exports.loginController = ( req, res) => {
             클라이언트는 요청한 응답을 받기 위해서 반드시 스스로를 인증해야함 */
             if(err || !user){
                 return res.status(400).json({
-                    error: 'Email does not exist'
+                    errors: 'Email does not exist'
                 })
-            };
+            }
 
             /* 인증 */
             if(!user.authenticate(password)){
                 return res.status(400).json({
-                    error: 'Email and password do not match'
+                    errors: 'Email and password do not match'
                 })
             };
 
@@ -91,7 +99,7 @@ exports.loginController = ( req, res) => {
             const token = jwt.sign(
                 { _id: user._id }, 
                 process.env.JWT_SECRET,
-                { expiresIn: '7d'}
+                { expiresIn: '1d'}
             );
 
             const { _id, name, email, role } = user
