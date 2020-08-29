@@ -1,6 +1,6 @@
 import cookie from 'js-cookie';
 
-//Set in Cookie
+// Set in Cookie
 export const setCookie = ( key, value ) => {
     if(window !== 'undefined'){
         cookie.set(key, value, {
@@ -10,7 +10,7 @@ export const setCookie = ( key, value ) => {
     }
 }
 
-//Remove from Cookie
+// Remove from Cookie
 export const removeCookie = key => {
     if(window !== 'undefined'){
         cookie.remove(key, {
@@ -19,14 +19,14 @@ export const removeCookie = key => {
     }
 }
 
-//Get from cookie like token 
+// Get from cookie like token 
 export const getCookie = key => {
     if(window !== 'undefined'){
         return cookie.get(key);
     }
 }
 
-//Set in localstorage
+// Set in localstorage
 export const setLocalStorage = (key, value) => {
     if(window !== 'undefined'){
         localStorage.setItem(key, JSON.stringify(value))
@@ -44,7 +44,7 @@ export const removeLocalStorage = key => {
 export const authenticate = (response, next) => {
     setCookie("token", response.data.token)
     setLocalStorage('user', response.data.user)
-    next()
+    next();
 }
 
 // When Signout
@@ -57,9 +57,10 @@ export const signout = next => {
 export const isAuth = () => {
     if(window !== 'undefined'){
         const cookieChecked = getCookie('token');
+        console.log(cookieChecked);
         if(cookieChecked){
             if(localStorage.getItem('user')){
-                return JSON.parse(localStorage.getItem('user'))
+                return JSON.parse(localStorage.getItem('user'));
             }else{
                 return false;
             }
