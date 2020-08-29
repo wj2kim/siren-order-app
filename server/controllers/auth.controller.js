@@ -64,6 +64,7 @@ exports.registerController = (req, res) => {
 
 
 exports.loginController = ( req, res) => {
+    console.log(req.body);
     const {email, password} = req.body;
     /* 유효성 체크 */
     const errors = validationResult(req);
