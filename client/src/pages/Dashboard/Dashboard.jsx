@@ -13,7 +13,9 @@ const Dashboard = (props) => {
 
     return (
         <>
-            This is Dashboard
+            <div>
+                This is Dashboard
+            </div>
         </>
     )
 }

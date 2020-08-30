@@ -51,13 +51,13 @@ export const authenticate = (response, next) => {
 export const signout = next => {
     removeCookie('token')
     removeLocalStorage('user')
+    next();
 }
 
-// Get user info from localstorage
+// Get user info from localStorage
 export const isAuth = () => {
     if(window !== 'undefined'){
         const cookieChecked = getCookie('token');
-        console.log(cookieChecked);
         if(cookieChecked){
             if(localStorage.getItem('user')){
                 return JSON.parse(localStorage.getItem('user'));

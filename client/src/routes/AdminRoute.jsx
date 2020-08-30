@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { isAuth } from '../lib/auth';
+import { isAuth } from 'lib/auth';
 
 const AdminRoute = ({ component: Component , ...rest }) => {
     return (

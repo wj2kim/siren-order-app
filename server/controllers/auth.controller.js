@@ -64,7 +64,6 @@ exports.registerController = (req, res) => {
 
 
 exports.loginController = ( req, res) => {
-    console.log(req.body);
     const {email, password} = req.body;
     /* 유효성 체크 */
     const errors = validationResult(req);
@@ -89,7 +88,7 @@ exports.loginController = ( req, res) => {
                 })
             }
 
-            /* 인증 */
+            /* 비밀번호 인증 */
             if(!user.authenticate(password)){
                 return res.status(400).json({
                     errors: 'Email and password do not match'
@@ -100,7 +99,7 @@ exports.loginController = ( req, res) => {
             const token = jwt.sign(
                 { _id: user._id }, 
                 process.env.JWT_SECRET,
-                { expiresIn: '1d'}
+                { expiresIn: '1d' }
             );
 
             const { _id, name, email, role } = user
