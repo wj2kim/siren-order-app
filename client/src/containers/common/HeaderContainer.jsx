@@ -2,11 +2,12 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import { signout, getCookie } from 'lib/auth';
+import  Header from 'components/common/Header';
 
 const HeaderContainer = () => {
     const history = useHistory();
 
-    const logoutHandler = () => {
+    const handleLogout = () => {
         console.log('clicked')
         signout(() => {
             console.log('logout');
@@ -17,11 +18,7 @@ const HeaderContainer = () => {
 
     return (
         <div className="navigation">
-            <div>
-                <button onClick={logoutHandler}>
-                    <span>로그아웃</span>
-                </button>
-            </div>
+           <Header onLogout={ handleLogout } />
         </div>
     )
 }
