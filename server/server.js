@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const logger = require('./lib/logger');
 const app = express();
 
 /* body-parser 사용 */
@@ -38,8 +39,22 @@ app.use((req, res, next) => {
     })
 });
 
+var argv = require('minimist')(process.argv.slice(2));
+
+/* 의도한 호스트 / 기본 호스트 */
+const customHost = argv.host || process.env.HOST;
+/* 기본 IPv4/6 host */
+const HOST = customHost || null; 
+const prettyHost = customHost || 'localhost';
+
+
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${ PORT }`)
+app.listen(PORT, HOST, async err => {
+    if(err) {
+        return logger.error(err.message);
+    }
+
+    logger.appStarted(PORT, prettyHost);
 });
+
