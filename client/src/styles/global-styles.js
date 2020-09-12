@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import { StyleConstants } from './StyleConstants';
 /* istanbul ignore next */
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   html,
   body {
     height: 100%;
@@ -34,3 +34,5 @@ export const GlobalStyle = createGlobalStyle`
     height: 1.5rem;
   }
 `;
+
+export default GlobalStyle;

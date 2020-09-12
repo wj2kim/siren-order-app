@@ -1,37 +1,40 @@
 import produce from 'immer';
 
-const initialState = {
-  token: null,
+const INITIAL_STATE = {
+  token: "",
   signed: false,
   loading: false,
+  error: null,
 };
 
-const auth = (state = initialState, action) => {
+export default function auth(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
-      case 'AUTH/SIGN_IN_REQUEST': {
+      case '@auth/SIGN_IN_REQUEST': {
         draft.loading = true;
+        draft.error = null;
         break;
       }
-      case 'AUTH/SIGN_IN_SUCCESS': {
+      case '@auth/SIGN_IN_SUCCESS': {
         draft.token = action.payload.token;
+        console.log(draft.token);
+        // user 정보도 입력해야함. 
         draft.signed = true;
         draft.loading = false;
         break;
       }
-      case 'AUTH/SIGN_IN_FAILURE': {
+      case '@auth/SIGN_IN_FAILURE': {
         draft.loading = false;
+        draft.error = action.payload.error;
         break;
       }
-      case 'AUTH/SIGN_OUT': {
+      case '@auth/SIGN_OUT': {
         draft.token = null;
         draft.signed = false;
         break;
       }
       default:
-        return state;
+        break;
     }
   });
 }
-
-export default auth;
