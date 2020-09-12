@@ -17,3 +17,9 @@ export function updateProfilefailure() {
     type: '@user/UPDATE_PROFILE_FAILURE',
   };
 }
+
+export function resetProfile(){
+  return {
+    type: '@user/RESET_PROFILE',
+  };
+}

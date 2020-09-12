@@ -1,36 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+
 // import logo from '~/assets/logo.svg';
 import { Container, Content, Profile } from './styles';
 import { Logo } from './Logo';
+import { Nav } from './Nav';
 import styled from 'styled-components';
 import { StyleConstants } from 'styles/StyleConstants';
-import { signOut } from 'store/modules/auth/actions';
 import { PageWrapper } from '../../components/PageWrapper';
 
 export default function Header() {
-  const dispatch = useDispatch();
-  const name = useSelector(state => state.user.profile.name);
-
-  function handleSignOut() {
-    dispatch(signOut());
-  }
 
   return (
     <Wrapper>
       <PageWrapper>
         <Logo />
-        <aside>
-            <div>
-              <strong>{name}</strong>
-              <Link to="/profile">프로필</Link>
-            </div>
-            <button type="submit" onClick={handleSignOut}>
-              로그아웃
-            </button>
-        </aside>
-        {/* <Nav /> */}
+        <Nav />
       </PageWrapper>
     </Wrapper>
   );

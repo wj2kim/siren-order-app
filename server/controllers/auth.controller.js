@@ -73,7 +73,7 @@ exports.loginController = ( req, res) => {
         const firstError = errors.array().map(error => error.msg)[0]
         /* 422 Unprocessable Entity - 요청은 잘 만들어 졌지만, 문법 오류로 인하여 따를 수 없습니다. */
         return res.status(422).json({
-            errors:firstError
+            message:firstError
         });
     }else{
         /* 유저 존재 유무 확인 */
@@ -84,14 +84,14 @@ exports.loginController = ( req, res) => {
             클라이언트는 요청한 응답을 받기 위해서 반드시 스스로를 인증해야함 */
             if(err || !user){
                 return res.status(400).json({
-                    errors: 'Email does not exist'
+                    message: 'Email does not exist'
                 })
             }
 
             /* 비밀번호 인증 */
             if(!user.authenticate(password)){
                 return res.status(400).json({
-                    errors: 'Email and password do not match'
+                    message: 'Email and password do not match'
                 })
             };
 

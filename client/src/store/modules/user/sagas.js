@@ -14,11 +14,11 @@ export function* updateProfile({ payload }) {
 
     const response = yield call(api.put, 'users', profile);
 
-    toast.success('Perfil atualizado com sucesso!');
+    toast.success('업데이트가 완료됬습니다.');
 
     yield put(updateProfileSuccess(response.data));
   } catch (error) {
-    toast.error('Erro ao atualizar Perfil');
+    toast.error('업데이트가 실패하였습니다.');
     yield put(updateProfilefailure());
   }
 }

@@ -15,6 +15,10 @@ export default function user(state = INITIAL_STATE, action) {
         draft.profile = action.payload.profile;
         break;
       }
+      case '@user/RESET_PROFILE': {
+        draft.profile = null;
+        break;
+      }
       default:
     }
   });

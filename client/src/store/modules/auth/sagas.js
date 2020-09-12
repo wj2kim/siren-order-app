@@ -1,7 +1,8 @@
-import { takeLatest, call, put, all, delay } from 'redux-saga/effects';
+import { takeLatest, call, put, all, delay, putResolve } from 'redux-saga/effects';
 import history from 'utils/history';
 // import { browserHistory } from 'react-router';
 import { signInSuccess, signInError } from './actions';
+import { resetProfile } from '../user/actions';
 import { api, request } from 'utils/api';
 import { signInErrorType } from './types';
 
@@ -28,8 +29,8 @@ export function* signIn({ payload }) {
 
         yield put(signInSuccess(token, user));
         history.push('/dashboard');
-        // forwardTo('/dashboard');
     }catch (err) {
+        console.log(err.response.data);
         if(!err.response){
             yield put(signInError(signInErrorType.NETWORK_ERROR));
         }else if(err.response.status === 404) {
@@ -56,8 +57,10 @@ export function setToken({ payload }) {
 //     browserHistory.push(location);
 // }
 
-export function signOut() {
-    history.push('/');
+export function* signOut() {
+    yield delay(300);
+    yield history.push('/');
+    yield put(resetProfile());
 }
 
 export default all([
