@@ -9,6 +9,8 @@ import history from 'utils/history';
 import GlobalStyle from 'styles/global-styles';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from 'styles/theme/ThemeProvider';
+import { LoadingIndicator } from 'components/LoadingIndicator/index';
+
 
 import 'locales/i18n';
 
@@ -23,7 +25,7 @@ openSansObserver.load().then(() => {
 const App = () => {
     return(
         <Provider store={store}>
-            {/* <PersistGate loading={null} persistor={persistor}> */}
+            <PersistGate loading={<LoadingIndicator small />} persistor={persistor}>
                 <ThemeProvider>
                     <HelmetProvider>
                         <Router history={history}>
@@ -33,7 +35,7 @@ const App = () => {
                         </Router>
                     </HelmetProvider>
                 </ThemeProvider>
-            {/* </PersistGate> */}
+            </PersistGate>
         </Provider>
     )
 }

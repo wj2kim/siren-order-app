@@ -1,6 +1,5 @@
 import { takeLatest, call, put, all, delay, putResolve } from 'redux-saga/effects';
 import history from 'utils/history';
-// import { browserHistory } from 'react-router';
 import { signInSuccess, signInError } from './actions';
 import { resetProfile } from '../user/actions';
 import { api, request } from 'utils/api';
@@ -30,7 +29,7 @@ export function* signIn({ payload }) {
         yield put(signInSuccess(token, user));
         history.push('/dashboard');
     }catch (err) {
-        console.log(err.response.data);
+        console.log("에러", err);
         if(!err.response){
             yield put(signInError(signInErrorType.NETWORK_ERROR));
         }else if(err.response.status === 404) {

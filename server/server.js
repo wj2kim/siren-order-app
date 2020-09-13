@@ -31,6 +31,9 @@ if(process.env.NODE_ENV === 'development'){
 const authRouter = require('./routes/auth.route')
 app.use('/api/', authRouter);
 
+const ordersRouter = require('./routes/orders.route')
+app.use('/api/', ordersRouter);
+
 app.use((req, res, next) => {
     /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
     res.status(404).json({
