@@ -27,12 +27,17 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
 
-/* 모든 routes 불러옴 */
+/* 회원 관리 관련 라우터*/
 const authRouter = require('./routes/auth.route')
 app.use('/api/', authRouter);
 
+/* 주문 관리 관련 라우터 */
 const ordersRouter = require('./routes/orders.route')
 app.use('/api/', ordersRouter);
+
+/* 카카오 오픈빌더 스킬 관련 라우터  */
+const skillRouter = require('./routes/skills.route')
+app.use('/api/skill/', skillRouter);
 
 app.use((req, res, next) => {
     /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
