@@ -16,12 +16,10 @@ console.log(`
 ${chalk.bold('Access URI:')}${divider}
 URI: ${chalk.magenta(`${url}`)}${divider}`);
   },
-  // Called when express.js app starts on given port w/o errors
   appStarted: (port, host, tunnelStarted) => {
     console.log(`
     Server started ! ${chalk.green('✓')}`);
 
-    // If the tunnel started, log that and the URL it's available at
     if (tunnelStarted) {
       console.log(`Tunnel initialised ${chalk.green('✓')}`);
     }

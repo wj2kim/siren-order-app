@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const logger = require('./lib/logger');
 const app = express();
 
+
 /* body-parser 사용 */
 app.use(bodyParser.json());
 
@@ -47,6 +48,9 @@ app.use((req, res, next) => {
     })
 });
 
+/* 주문번호 관리 스케쥴러 */
+const { executeScheduler } = require('./lib/orderIdManager');
+
 var argv = require('minimist')(process.argv.slice(2));
 
 /* 의도한 호스트 / 기본 호스트 */
@@ -54,7 +58,6 @@ const customHost = argv.host || process.env.HOST;
 /* 기본 IPv4/6 host */
 const HOST = customHost || null; 
 const prettyHost = customHost || 'localhost';
-
 
 const PORT = process.env.PORT;
 

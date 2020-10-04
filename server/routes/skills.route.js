@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
+// const orderIdGenerator = require('../lib/orderIdGenerator');
+const { orderIdGenerator } = require('../lib/orderIdManager');
+
+// const orderIdGenerator = OrderIdGenerator();
+
+
 /* 카카오 오픈빌더 스킬 관련 controller 가져오기 */
 // const {
 //     selectOrdersController,
 //     removeOrderController,
 // } = require('../controllers/orders.controller.js');
-
-
-
 
 router.post('/announcement', function(req, res) {
     const response = {
@@ -63,14 +66,28 @@ router.post('/announcement', function(req, res) {
 });
 
 
-function manageOrder(body) {
+function manageOrder( body = null ) {
     if(body){
         const { drinkName, cupCount } = body.action.params;
         const { botUserKey, isFriend, plusfriendUserKey } = body.userRequest.user.properties;
-        console.log("properties", body.userRequest.user.properties);
+        // console.log("properties", body.userRequest.user.properties);
 
         const timeInMs = Date.now();
-        const orderId = 12;
+
+        // const orderIdGenerator = () => {
+        //     const everyDay = schedule.scheduleJob('10 * * * * *', function(){
+        //         console.log('매 10초에 실행되나');
+        //     });
+        // }
+
+        // orderIdGenerator();
+        // 필요한 라이브러리 
+        // time generator 
+        // orderId generator 
+        // orderProperty -> orderManager 라는 자료구조에 추가하기
+
+        const orderId = orderIdGenerator.getOrderId();
+        
         const orderProperty = {
             orderId,
             timeInMs,
@@ -81,8 +98,7 @@ function manageOrder(body) {
 
         console.log("오더 정보", orderProperty);
 
-
-        return body.action.params;
+        return orderProperty;
         // 날짜 생성 
         // 주문 번호 생성 
         // 주문 번호 , 날짜, 
@@ -92,7 +108,7 @@ function manageOrder(body) {
 
 router.post('/order', function(req, res) {
     const body = req.body;
-    const { drinkName, cupCount } = manageOrder(body)
+    const { orderId, drinkName, cupCount } = manageOrder(body)
     // const { drinkName, cupCount } = req.body.action.params
     const response = {
         version: "2.0",
@@ -101,7 +117,7 @@ router.post('/order', function(req, res) {
                 {
                     simpleText: {
                         text: 
-                        `✅ 주문이 완료되었어요.\n음료가 준비되면 알려드릴게요 💁‍♀️ \n\n주문 내역\n-------------\n${drinkName} ${cupCount}잔`
+                        `✅ 주문이 완료되었어요.\n\n주문번호 [${orderId}]\n음료가 준비되면 알려드릴게요 💁‍♀️ \n\n주문 내역\n-------------\n${drinkName} ${cupCount}잔`
                     }
                 }
             ]
