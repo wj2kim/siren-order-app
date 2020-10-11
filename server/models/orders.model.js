@@ -1,19 +1,22 @@
 const Orders = () => {
     let orderList = [
-        { id: 29, content: '아메리카노 1잔', date: new Date() - 20000 },
-        { id: 30, content: '카페라테 2잔, 아이스초코 1잔', date: new Date() },
-        { id: 31, content: '카페모카 1잔, 아메리카노 2잔', date: new Date() },
+        { orderId: '112', timeInMs: 1601885792763, plusfriendUserKey:'123def34', drinkName: '아이스 그린티 라떼', cupCount: '1' },
     ]
     return {
+        insertOne(orderForm) {
+            orderList.push(orderForm);
+            return [...orderList];
+        },
         selectAll() {
-            return orderList
+            return [...orderList];
         },
         removeOne(id) {
             const idx = orderList.findIndex((order) => order.id === id)
-            if(idx > -1 ) return orderList.splice( idx, 1);
+            if(idx > -1 ) orderList.splice( idx, 1);
+            return [...orderList];
             // return orderList.filter(order => order.id !== id);
         }
     }
 }
 
-module.exports = Orders;
+module.exports = Orders();

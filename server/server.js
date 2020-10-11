@@ -40,6 +40,10 @@ app.use('/api/', ordersRouter);
 const skillRouter = require('./routes/skills.route')
 app.use('/api/skill/', skillRouter);
 
+/* 푸시 알람 관련 라우터*/
+// const notificationRouter = require('./routes/notification.route')
+// app.use('/notification/', notificationRouter);
+
 app.use((req, res, next) => {
     /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
     res.status(404).json({
@@ -49,7 +53,7 @@ app.use((req, res, next) => {
 });
 
 /* 주문번호 관리 스케쥴러 */
-const { executeScheduler } = require('./lib/orderIdManager');
+const { executeScheduler } = require('./lib/orderIdScheduler');
 
 var argv = require('minimist')(process.argv.slice(2));
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import { store, persistor } from 'store';
 import Routes from 'routes';
@@ -30,7 +29,6 @@ const App = () => {
                     <HelmetProvider>
                         <Router history={history}>
                             <Routes/>
-                            <ToastContainer />
                             <GlobalStyle />
                         </Router>
                     </HelmetProvider>

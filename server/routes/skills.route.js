@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-// const orderIdGenerator = require('../lib/orderIdGenerator');
-const { orderIdGenerator } = require('../lib/orderIdManager');
+const manageOrder = require('../lib/orderManager');
+// const { orderIdGenerator } = require('../lib/orderIdScheduler');
 
 // const orderIdGenerator = OrderIdGenerator();
 
@@ -14,13 +14,16 @@ const { orderIdGenerator } = require('../lib/orderIdManager');
 // } = require('../controllers/orders.controller.js');
 
 router.post('/announcement', function(req, res) {
+    let responseText = "";
+    responseText = "공지\n\n💡오늘은 카페 공사 일정으로 인해 4시에 마감합니다.\n";
+
     const response = {
         version: "2.0",
         template: {
             outputs: [
                 {
                 "simpleText": {
-                        text: "공지\n\n💡오늘은 카페 공사 일정으로 인해 4시에 마감합니다.\n"
+                        text: responseText,
                     },
                 },
                 {
@@ -66,64 +69,31 @@ router.post('/announcement', function(req, res) {
 });
 
 
-function manageOrder( body = null ) {
-    if(body){
-        const { drinkName, cupCount } = body.action.params;
-        const { botUserKey, isFriend, plusfriendUserKey } = body.userRequest.user.properties;
-        // console.log("properties", body.userRequest.user.properties);
-
-        const timeInMs = Date.now();
-
-        // const orderIdGenerator = () => {
-        //     const everyDay = schedule.scheduleJob('10 * * * * *', function(){
-        //         console.log('매 10초에 실행되나');
-        //     });
-        // }
-
-        // orderIdGenerator();
-        // 필요한 라이브러리 
-        // time generator 
-        // orderId generator 
-        // orderProperty -> orderManager 라는 자료구조에 추가하기
-
-        const orderId = orderIdGenerator.getOrderId();
-        
-        const orderProperty = {
-            orderId,
-            timeInMs,
-            plusfriendUserKey,
-            drinkName,
-            cupCount,
-        }
-
-        console.log("오더 정보", orderProperty);
-
-        return orderProperty;
-        // 날짜 생성 
-        // 주문 번호 생성 
-        // 주문 번호 , 날짜, 
-    }
-}
-
-
 router.post('/order', function(req, res) {
-    const body = req.body;
-    const { orderId, drinkName, cupCount } = manageOrder(body)
-    // const { drinkName, cupCount } = req.body.action.params
+    let responseText = "";
+    let orderForm = manageOrder(req.body);
+
+    if(orderForm){
+        const { orderId, drinkName, cupCount } = orderForm;
+        responseText = `✅ 주문이 완료되었어요.\n\n주문번호 [${orderId}]\n음료가 준비되면 알려드릴게요 😉\n\n주문 내역\n-------------\n${drinkName} ${cupCount}잔`
+    }else{
+        responseText = `❌ 주문이 완료되지 못했어요. \n\n다시 한번 주문해주세요 😧`
+    }
+    
     const response = {
         version: "2.0",
         template: {
             outputs: [
                 {
                     simpleText: {
-                        text: 
-                        `✅ 주문이 완료되었어요.\n\n주문번호 [${orderId}]\n음료가 준비되면 알려드릴게요 💁‍♀️ \n\n주문 내역\n-------------\n${drinkName} ${cupCount}잔`
+                        text: responseText,
                     }
                 }
             ]
         }
     }
     res.status(200).send(response);
+    orderForm = null;
 });
 
 
