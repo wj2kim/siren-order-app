@@ -8,7 +8,7 @@ const {
 } = require('../controllers/orders.controller.js');
 
 
-router.post('/orders', selectOrdersController);
+router.post('/selectOrders', selectOrdersController);
 router.post('/removeOrder', removeOrderController);
 
 module.exports = router;
