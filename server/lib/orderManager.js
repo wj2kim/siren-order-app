@@ -1,5 +1,6 @@
 const Orders = require('../models/orders.model');
 const { orderIdGenerator } = require('../lib/orderIdScheduler');
+const sendNotificationToClient = require('../lib/notify');
 
 
 /**
@@ -42,7 +43,16 @@ const manageOrder = ( body ) => {
         )
 
         const copiedOrderList = Orders.insertOne(orderForm);
-        // copiedOrderList 를 클라이언트에게 먼저 알려주는 로직을 만들어야 함
+
+        const tokens = [];
+        const notificationData = {
+            title: '주문',
+            body: 'testing',
+        }
+
+        /* 구독하는 클라이언트에게 주문 알림 보냄 */
+        sendNotificationToClient(tokens, notificationData);
+        
         console.log("오더 추가 하고 난 뒤 오더 목록", copiedOrderList);
         console.log("오더 정보", orderForm);
 
@@ -51,6 +61,8 @@ const manageOrder = ( body ) => {
 
     return null;
 }
+
+
 
 
 module.exports = manageOrder;

@@ -2,6 +2,7 @@
 /build
 
 config.env
+siren-order-4979c-firebase-adminsdk-7v2n4-e89a8b75c5.json
 
 .DS_Store
 
@@ -10,3 +11,4 @@ yarn-debug.kog*
 yarn-error.log*
 
 .vscode
+
