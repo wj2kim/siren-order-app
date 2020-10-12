@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { request, api } from 'utils/api';
 import ko from 'date-fns/locale/ko';
 import { format, parseJSON } from 'date-fns';
+import { onMessageListener } from 'utils/firebase-client';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Orders = () => {
@@ -14,12 +18,12 @@ const Orders = () => {
         loadOrders(selectOrdersURL);
     }, [])
 
-    const loadOrders = async (requestURL, options = null) => {
+    const loadOrders = async (requestURL, id = null) => {
         setIsLoading(true);
         try{
             let response;
-            if(options){
-                response = await request(requestURL, options);
+            if(id){
+                response = await request(requestURL, {id});
             }else{
                 response = await request(requestURL);
             }
@@ -35,7 +39,7 @@ const Orders = () => {
         const data = orders.map( order => {
             return {
                 ...order,
-                data: format(parseJSON(order.timeInMs), "yyyy-MM-dd a p:ss", {
+                date: format(parseJSON(order.timeInMs), "yyyy-MM-dd a p:ss", {
                     locale: ko,
                 })
             }
@@ -48,6 +52,23 @@ const Orders = () => {
         e.preventDefault();
         loadOrders(removeOrderURL, id);
       }
+
+    onMessageListener()
+        .then((payload) => {
+            const { title, body } = payload.data;
+            toast(`${title} 🥤 ${body}잔`,{
+                position:"top-right",
+                autoClose: 7000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            loadOrders(selectOrdersURL);
+        }).catch((err) => {
+            toast.error(JSON.stringify(err));
+        })
 
     return(
         <>
@@ -64,7 +85,7 @@ const Orders = () => {
                             <span>
                             {order.date}
                             </span>
-                            <button type="button" onClick={ (e) => handleFinished(e, order.id ) }>완료</button>
+                            <button type="button" onClick={ (e) => handleFinished(e, order.orderId ) }>완료</button>
                         </li>
                         ))
                     ) : (

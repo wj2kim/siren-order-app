@@ -1,6 +1,7 @@
 const Orders = require('../models/orders.model');
 const { orderIdGenerator } = require('../lib/orderIdScheduler');
 const sendNotificationToClient = require('../lib/notify');
+const FirebaseTokenStore = require('../models/firebase.model');
 
 
 /**
@@ -25,7 +26,6 @@ function OrderForm(orderId, timeInMs, plusfriendUserKey, drinkName, cupCount){
  * @class OrderManager
  * @param {object} body 
  */
-
 const manageOrder = ( body ) => {
     if(body){
         const { drinkName, cupCount } = body.action.params;
@@ -34,27 +34,28 @@ const manageOrder = ( body ) => {
         const orderId = orderIdGenerator.getOrderId();
         const timeInMs = Date.now();
 
-        const orderForm = new OrderForm(
+        const orderForm = {
             orderId,
             timeInMs,
             plusfriendUserKey,
             drinkName,
             cupCount,
-        )
+        }
 
         const copiedOrderList = Orders.insertOne(orderForm);
 
-        const tokens = [];
-        const notificationData = {
-            title: '주문',
-            body: 'testing',
-        }
-
+        const tokens = FirebaseTokenStore.selectAll();
         /* 구독하는 클라이언트에게 주문 알림 보냄 */
-        sendNotificationToClient(tokens, notificationData);
+        if(tokens.length !== 0){
+            const notificationData = {
+                title: `주문번호 [${orderId}]`,
+                body: `${drinkName}\n${cupCount}`,
+            }
+            console.log("노티 알림", notificationData);
+            sendNotificationToClient(tokens, notificationData);
+        }
         
         console.log("오더 추가 하고 난 뒤 오더 목록", copiedOrderList);
-        console.log("오더 정보", orderForm);
 
         return orderForm;
     }

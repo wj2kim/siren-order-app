@@ -25,8 +25,15 @@ messaging.setBackgroundMessageHandler(function(payload) {
 	return self.registration.showNotification(title, options);
 })
 
-self.addEventListener('notificationClick', event => {
+self.addEventListener('notificationclick', event => {
+    event.notification.close();
     console.log("노티피케이션 클릭", event);
+    // if (event.action === 'get') {
+    //     synchronizeReader();
+    // } else {
+    // clients.openWindow('https://www.youtube.com');
+    // }
+    // window.open('www.youtube.com');
     return event;
-})
+}, false)
 

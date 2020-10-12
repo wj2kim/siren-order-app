@@ -8,11 +8,11 @@ api.defaults.timeout = 5000;
 
 api.interceptors.response.use(
   function (response){
-    console.log("interRes", response)
+    // console.log("interRes", response)
     return response;
   },
   function (error){
-    console.log("interErr", error)
+    // console.log("interErr", error)
     return Promise.reject(error);
   }
 )

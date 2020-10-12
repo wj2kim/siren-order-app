@@ -4,63 +4,49 @@ import { NavBar } from 'containers/NavBar';
 import { PageWrapper } from 'components/PageWrapper';
 import { request, api } from 'utils/api';
 import { ToastContainer } from 'react-toastify';
-import Orders from 'containers/Orders';
 
+import Orders from 'containers/Orders';
 
 import { requestFirebaseNotificationPermission } from 'utils/firebase-client';
 
 
 const Dashboard = (props) => {
   // const [ orders, setOrders ] = useState([]);
+  let tokenSent = false;
 
   /* 페이지 진입 시 서버로 부터 오더 리스트 가지고 오기 */
   useEffect(() => {
-    requestFirebaseNotificationPermission()
-    .then((firebaseToken) => {
-    // eslint-disable-next-line no-console
-      console.log(firebaseToken);
-    })
-      .catch((err) => {
-      return err;
-    });
+    if(!tokenSent){
+      requestFirebaseNotificationPermission()
+      .then((firebaseToken) => {
+        console.log("발급 받은 파이어베이스 토큰", firebaseToken);
+        sendFirebaseTokenToServer(firebaseToken);
+        tokenSent = true;
+      })
+        .catch((err) => {
+        return err;
+      });
 
-    // requestFirebaseNotificationPermission()
-    // .then((firebaseToken) => {
-    //   if(firebaseToken){
-    //     console.log("토큰", firebaseToken);
-    //   }else{
-    //     console.log("토큰을 받아오는데 실패")
-    //   }
-    // }).catch((err) => {
-    //   console.log("토큰을 받아오는 도중 에러가 발생", err);
-    //   return err;
-    //   // showToken('에러 토큰', err);
-    //   // setTokenSentToServer(false);
-    // })
-
-
-    // async function loadOrders() {
-    //   const requestURL = `/orders`;
-    //   const response = await request(requestURL);
-    //   // const response = await api.get(requestURL);
-    //   handleResponse(response);
-    // }
-    // loadOrders();
+      const sendFirebaseTokenToServer = async ( firebaseToken ) => {
+        const requestURL = `/registerClientToken`;
+        // const clientInfo = {
+        //   browserName : navigator.appName,
+        //   firebaseToken,
+        //   deviceInfo : navigator.userAgent,
+        //   browserLanguage : navigator.language,
+        // }
+        try {
+          const response = await request(requestURL, { firebaseToken });
+          console.log("서버에 토큰 전송 : ", response.data.message);
+          
+        }catch(err){
+          if(err.response.status === 400){
+            console.log("서버에 토큰 전송 : ", err.response.data.message);
+          }
+        }
+      }
+    }
   },[]);
-
-
-  // const handleResponse = (response) => {
-  //   const data = response.data.orders.map( order => {
-  //     return {
-  //       ...order,
-  //       date: format(parseJSON(order.timeInMs), "yyyy-MM-dd a p:ss", {
-  //         locale: ko,
-  //       })
-  //     }
-  //   });
-  //   setOrders(data);
-  // }
-
 
   return (
     <>
@@ -72,7 +58,14 @@ const Dashboard = (props) => {
         />
       </Helmet>
       {/* <NavBar /> */}
-      <ToastContainer autoClose={3000} position="top-right"/>
+      <ToastContainer
+       autoClose={7000}
+       position="top-right"
+       closeOnClick
+       pauseOnFocusLoss
+       draggable
+       pauseOnHover
+       />
       <PageWrapper>
         <div>
           <div>Dashboard Page 입니다.</div>

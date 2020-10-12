@@ -1,4 +1,5 @@
 const User = require('../models/auth.model');
+const FirebaseTokenStore = require('../models/firebase.model');
 // const expressJwt = require('express-jwt');
 // const _ = require('lodash');
 // const fetch = require('node-fetch');
@@ -63,7 +64,7 @@ exports.registerController = (req, res) => {
 }
 
 
-exports.loginController = ( req, res) => {
+exports.loginController = (req, res) => {
     const {email, password} = req.body;
     /* 유효성 체크 */
     const errors = validationResult(req);
@@ -113,5 +114,19 @@ exports.loginController = ( req, res) => {
                 }
             });
         })
+    }
+}
+
+exports.registerClientTokenController = (req, res) => {
+    const result = FirebaseTokenStore.insertOne(req.body.firebaseToken);
+    console.log("등록 결과", result);
+    if(result){
+        return res.status(200).json({
+            message: '토큰 등록 성공',
+    });
+    }else{
+        return res.status(400).json({
+            message: '토큰 등록 실패',
+        });
     }
 }
