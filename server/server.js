@@ -28,6 +28,10 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
 
+if (process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
+}
+
 /* 회원 관리 관련 라우터*/
 const authRouter = require('./routes/auth.route')
 app.use('/api/', authRouter);
