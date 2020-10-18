@@ -14,11 +14,11 @@ import { requestFirebaseNotificationPermission } from 'utils/firebase-client';
 const Dashboard = (props) => {
   // const [ orders, setOrders ] = useState([]);
 
-  /* 페이지 진입 시 서버로 부터 오더 리스트 가지고 오기 */
+  
   useEffect(() => {
-    if(getCookie('firebaseToken')){
-    return;
-    }
+    // if(getCookie('firebaseToken')){
+    // return;
+    // }
     requestFirebaseNotificationPermission()
     .then((firebaseToken) => {
       console.log("발급 받은 파이어베이스 토큰", firebaseToken);

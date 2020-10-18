@@ -18,7 +18,7 @@ const SignIn = () => {
     
     useEffect(() => {
         dispatch(clearAuthError());
-    }, [])
+    })
 
     const handleChange = text => e => {
         setFormData({ ...formData, [text]: e.target.value });
@@ -58,7 +58,7 @@ const SignIn = () => {
                                 <svg className="login__icon pass svg-icon" viewBox="0 0 20 20">
                                     <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
                                 </svg>
-                                <input type="password" className="login__input pass" placeholder="비밀번호" maxLength="20" onChange={ handleChange('password')}/>
+                                <input type="password" autoComplete="true" className="login__input pass" placeholder="비밀번호" maxLength="20" onChange={ handleChange('password')}/>
                             </div>
                             <button type="submit" className="login__submit" disabled={ isLoading }>{ isLoading? <LoadingIndicator small /> : '로그인' }</button>
                         </form>

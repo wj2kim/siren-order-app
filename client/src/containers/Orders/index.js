@@ -33,7 +33,7 @@ const Orders = () => {
             }else{
                 response = await request(requestURL);
             }
-            console.log("리스판스", response);
+            console.log("loadOrders 리스폰스", response);
             if( response.status === 200 ){
                 if( response.data.orders.length ){
                     setOrderList(responseParser(response.data.orders));
@@ -81,7 +81,7 @@ const Orders = () => {
         if(code === 201) return 'info'
         if(code === 200) return 'success'    
         return 'error';
-        }
+    }
 
     const handleFinished = (e, ids) => {
         console.log("아이디스", ids);
@@ -108,11 +108,6 @@ const Orders = () => {
 
     return(
         <div className="orders-wrapper" style={{ marginTop:'6rem'}}>
-            {/* { isLoading ? (
-                <p>Loading ...</p>
-            ) : (
-                <OrderTable orders={orders}/>
-            )} */}
             { alert.message && <Alert severity={
                 verifyAlertCode(alert.code)
                 }>{alert.message}</Alert> }

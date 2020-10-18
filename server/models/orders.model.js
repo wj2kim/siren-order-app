@@ -13,14 +13,11 @@ const Orders = () => {
             return [...orderList];
         },
         removeOne(ids) {
-            console.log("아이디스서버", ids);
             for(id of ids){
                 const idx = orderList.findIndex((order) => order.orderId === id)
                 if(idx > -1 ) orderList.splice( idx, 1);
             }
-            console.log("아이디스버서리스판스", ...orderList);
             return [...orderList];
-            // return orderList.filter(order => order.id !== id);
         }
     }
 }

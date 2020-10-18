@@ -20,7 +20,7 @@ export const selectTheme = createSelector(
   [state => state.theme || initialState],
   theme => {
     if (theme.selected === 'system') {
-      return isSystemDark ? themes.dark : themes.light;
+      return isSystemDark ? themes.light : themes.light;
     }
     return themes[theme.selected];
   },

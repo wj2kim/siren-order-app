@@ -145,7 +145,7 @@ const EnhancedTableToolbar = (props) => {
           {numSelected}개 선택
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+        <Typography className={classes.title} variant="h6" style={{fontWeight:'800'}} id="tableTitle" component="div">
           주문 목록
         </Typography>
       )}
