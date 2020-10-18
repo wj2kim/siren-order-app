@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { NavBar } from 'containers/NavBar';
 // import { Masthead } from './Masthead';
 // import { Features } from './Features';
-import { PageWrapper } from 'components/PageWrapper';
+// import { PageWrapper } from 'components/PageWrapper';
 import SignIn from 'containers/SignIn';
 import ThemeSwitch from 'containers/ThemeSwitch';
 
@@ -18,12 +18,14 @@ const Main = (props) => {
         />
       </Helmet>
       <NavBar />
-      <PageWrapper>
+      {/* <PageWrapper> */}
+      <div>
         <SignIn/>
-        <ThemeSwitch />
+      </div>
+        {/* <ThemeSwitch /> */}
         {/* <Masthead /> */}
         {/* <Features /> */}
-      </PageWrapper>
+      {/* </PageWrapper> */}
     </>
   );
 }

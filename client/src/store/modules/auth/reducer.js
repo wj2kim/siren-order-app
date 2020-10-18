@@ -20,6 +20,11 @@ export default function auth(state = INITIAL_STATE, action) {
         // user 정보도 입력해야함. 
         draft.signed = true;
         draft.loading = false;
+        draft.error = null
+        break;
+      }
+      case '@auth/CLEAR_AUTH_ERROR': {
+        draft.error = null;
         break;
       }
       case '@auth/SIGN_IN_FAILURE': {
@@ -29,6 +34,7 @@ export default function auth(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_OUT': {
         draft.token = null;
+        draft.error = null
         draft.signed = false;
         break;
       }

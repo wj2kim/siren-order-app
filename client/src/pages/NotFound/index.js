@@ -23,7 +23,7 @@ const NotFound = () => {
           </span>
           4
         </Title>
-        <P>Page not found.</P>
+        <P>요청하신 페이지를 찾을 수 없습니다.</P>
         {/* <Link to={process.env.PUBLIC_URL + '/'}>Return to Home Page</Link> */}
       </Wrapper>
     </>

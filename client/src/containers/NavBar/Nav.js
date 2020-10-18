@@ -7,18 +7,18 @@ export function Nav() {
   return (
     <Wrapper>
       <Item
-        href="https://cansahin.gitbook.io/react-boilerplate-cra-template/"
+        href=""
         target="_blank"
-        title="Documentation Page"
+        title="준비 중"
         rel="noopener noreferrer"
       >
         <DocumentationIcon />
         Documentation
       </Item>
       <Item
-        href="https://github.com/react-boilerplate/react-boilerplate-cra-template"
+        href="https://github.com/wj2kim/siren-order-app"
         target="_blank"
-        title="Github Page"
+        title="소스 코드"
         rel="noopener noreferrer"
       >
         <GithubIcon />
@@ -34,7 +34,7 @@ const Wrapper = styled.nav`
 `;
 
 const Item = styled.a`
-  color: ${p => p.theme.primary};
+  color: #decba4;
   cursor: pointer;
   text-decoration: none;
   display: flex;
@@ -53,5 +53,6 @@ const Item = styled.a`
 
   .icon {
     margin-right: 0.25rem;
+    color:#decba4;
   }
 `;

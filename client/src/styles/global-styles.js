@@ -12,8 +12,14 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     padding-top: ${StyleConstants.NAV_BAR_HEIGHT};
-    background-color: ${p => p.theme.background};
+    // background-color: ${p => p.theme.background};
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    
+    // color: #212112;
+    // background-image : url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
   }
+
+
 
   body.fontLoaded {
     font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;

@@ -54,7 +54,7 @@ const Dashboard = (props) => {
   },[]);
 
   return (
-    <>
+    <div className="main-page-wrapper" style={{ marginTop: '4rem'}}>
       <Helmet>
         <title>Dashboard</title>
         <meta
@@ -73,15 +73,14 @@ const Dashboard = (props) => {
        />
       <PageWrapper>
         <div>
-          <div>Dashboard Page 입니다.</div>
-          <div>
+          <div className="page-content" >
               <Orders />
           </div>
         </div>
         {/* <Masthead /> */}
         {/* <Features /> */}
       </PageWrapper>
-    </>
+    </div>
   );
 }
 

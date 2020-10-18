@@ -56,7 +56,7 @@ exports.registerController = (req, res) => {
                 return res.json({
                     success: true,
                     message: user,
-                    message: 'Signup success'
+                    message: '회원가입을 완료했습니다. 😉'
                 });
             }
         });
@@ -85,14 +85,14 @@ exports.loginController = (req, res) => {
             클라이언트는 요청한 응답을 받기 위해서 반드시 스스로를 인증해야함 */
             if(err || !user){
                 return res.status(400).json({
-                    message: 'Email does not exist'
+                    message: '이메일이 존재하지 않습니다. 🙄'
                 })
             }
 
             /* 비밀번호 인증 */
             if(!user.authenticate(password)){
                 return res.status(400).json({
-                    message: 'Email and password do not match'
+                    message: '이메일 혹은 비밀번호가 틀렸습니다. 😦'
                 })
             };
 

@@ -7,8 +7,8 @@ exports.selectOrdersController = (req, res) => {
 }
 
 exports.removeOrderController = (req, res) => {
-    const { id } = req.body;
+    const { ids } = req.body;
     return res.status(200).json({
-        orders : Orders.removeOne(id),
+        orders : Orders.removeOne(ids),
     })
 }

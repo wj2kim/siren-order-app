@@ -4,12 +4,18 @@ import ko from 'date-fns/locale/ko';
 import { format, parseJSON } from 'date-fns';
 import { onMessageListener } from 'utils/firebase-client';
 import { toast } from 'react-toastify';
+import Alert from '@material-ui/lab/Alert';
+// import Order from 'components/Order';
+import OrderTable from 'components/OrderTable';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
 const Orders = () => {
-    const [ orders, setOrders ] = useState([]);
+    const [ orderList, setOrderList ] = useState([]);
+    const [ alert, setAlert] = useState({
+        message: '',
+        code: 0,
+    });
     const [ isLoading, setIsLoading ] = useState(false);
     const selectOrdersURL = `/selectOrders`;
     const removeOrderURL = `/removeOrder`;
@@ -18,25 +24,49 @@ const Orders = () => {
         loadOrders(selectOrdersURL);
     }, [])
 
-    const loadOrders = async (requestURL, id = null) => {
+    const loadOrders = async (requestURL, ids = []) => {
         setIsLoading(true);
         try{
             let response;
-            if(id){
-                response = await request(requestURL, {id});
+            if(ids.length){
+                response = await request(requestURL, {ids});
             }else{
                 response = await request(requestURL);
             }
-            setOrders(responseParser(response.data.orders));
+            console.log("리스판스", response);
+            if( response.status === 200 ){
+                if( response.data.orders.length ){
+                    setOrderList(responseParser(response.data.orders));
+                    setAlert({
+                        message: '대기중인 주문이 있습니다.',
+                        code: response.status
+                    })
+                }else{
+                    setOrderList([]);
+                    setAlert({
+                        message: '주문 내역이 없습니다.',
+                        code : response.status + 1
+                    });
+                }
+            }else{
+                setAlert({
+                    message: '서버에서 주문 목록을 받아오지 못했습니다. 다시 한번 시도해 주시기 바랍니다.',
+                    code: response.status
+                });
+            }
         }catch(err){
             console.log("loadOrders err", err);
+            setAlert({
+                message: '서버와의 통신에 실패했습니다. 다시 한번 시도해 주시기 바랍니다.',
+                code: err.status
+            });
             // 에러 처리 해아 함
         }
         setIsLoading(false);
     }
 
-    const responseParser = (orders) => {
-        const data = orders.map( order => {
+    const responseParser = (orderList) => {
+        const data = orderList.map( order => {
             return {
                 ...order,
                 date: format(parseJSON(order.timeInMs), "yyyy-MM-dd a p:ss", {
@@ -46,12 +76,18 @@ const Orders = () => {
         });
         return data;
     }
+    
+    const verifyAlertCode = (code) => {
+        if(code === 201) return 'info'
+        if(code === 200) return 'success'    
+        return 'error';
+        }
 
-
-    const handleFinished = (e, id) => {
+    const handleFinished = (e, ids) => {
+        console.log("아이디스", ids);
         e.preventDefault();
-        loadOrders(removeOrderURL, id);
-      }
+        loadOrders(removeOrderURL, ids);
+    }
 
     onMessageListener()
         .then((payload) => {
@@ -71,31 +107,17 @@ const Orders = () => {
         })
 
     return(
-        <>
-            { isLoading ? (
+        <div className="orders-wrapper" style={{ marginTop:'6rem'}}>
+            {/* { isLoading ? (
                 <p>Loading ...</p>
             ) : (
-                <ul>
-                    {orders.length > 0 ? (
-                        orders.map(order => (
-                        <li key={order.orderId}>
-                            <p>{order.orderId}</p>
-                            <p>{order.drinkName}</p>
-                            <p>{order.cupCount}</p>
-                            <span>
-                            {order.date}
-                            </span>
-                            <button type="button" onClick={ (e) => handleFinished(e, order.orderId ) }>완료</button>
-                        </li>
-                        ))
-                    ) : (
-                        <li>
-                        <em>주문 내역이 없습니다.</em>
-                        </li>
-                    )}
-                </ul>
-            )}
-        </>
+                <OrderTable orders={orders}/>
+            )} */}
+            { alert.message && <Alert severity={
+                verifyAlertCode(alert.code)
+                }>{alert.message}</Alert> }
+            <OrderTable orderList={orderList} handleFinished={handleFinished}/>
+        </div>
     )
 }
 

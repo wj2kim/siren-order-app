@@ -55,6 +55,7 @@ const Wrapper = styled.header`
   top: 0;
   width: 100%;
   background-color: ${p => p.theme.background};
+  // background: transparent;
   z-index: 2;
 
   @supports (backdrop-filter: blur(10px)) {

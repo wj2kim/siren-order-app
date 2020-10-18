@@ -16,14 +16,14 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 1.25rem;
-  color: ${p => p.theme.text};
-  font-weight: bold;
+  font-size: 1.35rem;
+  color: #3c3b3f;
+  font-weight: 800;
   margin-right: 1rem;
 `;
 
 const Description = styled.div`
   font-size: 0.875rem;
-  color: ${p => p.theme.textSecondary};
+  color: #4b493e;
   font-weight: normal;
 `;

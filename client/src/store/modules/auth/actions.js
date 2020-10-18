@@ -12,6 +12,12 @@ export function signInSuccess(token, user) {
   };
 }
 
+export function clearAuthError() {
+  return {
+    type: '@auth/CLEAR_AUTH_ERROR',
+  };
+}
+
 export function signInError(error) {
   return {
     type: '@auth/SIGN_IN_FAILURE',
