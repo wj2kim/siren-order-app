@@ -39,7 +39,7 @@ export function* signIn({ payload }) {
         }else if (err.response.status === 400){
             yield put(signInError(signInErrorType.ERROR_MESSAGE(err.response.data.message)));
         }else {
-            yield put(signInError(signInErrorType.RESPONSE_ERROR));
+            yield put(signInError(signInErrorType.NETWORK_ERROR));
         }
     }
 }

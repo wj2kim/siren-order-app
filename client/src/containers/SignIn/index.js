@@ -18,7 +18,7 @@ const SignIn = () => {
     
     useEffect(() => {
         dispatch(clearAuthError());
-    })
+    },[])
 
     const handleChange = text => e => {
         setFormData({ ...formData, [text]: e.target.value });
@@ -63,7 +63,7 @@ const SignIn = () => {
                             <button type="submit" className="login__submit" disabled={ isLoading }>{ isLoading? <LoadingIndicator small /> : '로그인' }</button>
                         </form>
                         <div className="message-area" style={{color:'#FFF'}}>
-                            { error ? <ErrorText>{signInErrorText(error)}</ErrorText> : '오늘도 격하게 반갑습니다. 😄' }
+                            { error ? <ErrorText>{signInErrorText(error)}</ErrorText> : '오늘도 힘이 나는 하루네요! 😄' }
                         </div>
                     </div>
                 </div>          
@@ -77,7 +77,7 @@ const SignIn = () => {
 export const signInErrorText = error => {
     switch (error) {
         case signInErrorType.NETWORK_ERROR: 
-            return '서버와의 연결에 실패하였습니다. 😳'
+            return '서버와의 연결에 실패하였습니다. 😳';
         case signInErrorType.USER_NOT_FOUND:
             return '해당 유저가 존재하지 않습니다. 😞';
         case signInErrorType.VALIDATION_ERROR:

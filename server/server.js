@@ -70,10 +70,12 @@ const prettyHost = customHost || 'localhost';
 const PORT = process.env.PORT;
 
 app.listen(PORT, HOST, async err => {
-    if(err) {
-        return logger.error(err.message);
+    if(process.env.NODE_ENV === 'development'){
+        if(err) {
+            return logger.error(err.message);
+        }
+    
+        logger.appStarted(PORT, prettyHost);
     }
-
-    logger.appStarted(PORT, prettyHost);
 });
 
