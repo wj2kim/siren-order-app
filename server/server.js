@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const logger = require('./lib/logger');
 const app = express();
 
 
@@ -71,6 +70,7 @@ const PORT = process.env.PORT;
 
 app.listen(PORT, HOST, async err => {
     if(process.env.NODE_ENV === 'development'){
+        const logger = require('./lib/logger');
         if(err) {
             return logger.error(err.message);
         }
