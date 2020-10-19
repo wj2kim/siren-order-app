@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
-const logger = require('../lib/logger');
+
+let logger;
+
+if(process.env.NODE_ENV === 'development'){
+    logger = require('../lib/logger');
+}
 
 /* 비동기 통신으로 Database 연동 */
 const connectDB = async err => {
     if(err){
-        return logger.error(err.message);
+
+        return logger ? logger.error(err.message) : err.message;
     }
 
     const connection = await mongoose.connect(process.env.MONGODB_URI, {
@@ -14,7 +20,7 @@ const connectDB = async err => {
         useUnifiedTopology: true
     })
 
-    logger.dbStarted(connection.connection.host);
+    logger? logger.dbStarted(connection.connection.host) : 'MongoDB connect success';
 }
 
 module.exports = connectDB;
