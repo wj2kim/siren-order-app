@@ -7,13 +7,13 @@ import { ToastContainer } from 'react-toastify';
 import { setCookie, getCookie } from 'utils/cookie';
 
 import Orders from 'containers/Orders';
-
 import { requestFirebaseNotificationPermission } from 'utils/firebase-client';
+
+
 
 
 const Dashboard = (props) => {
   // const [ orders, setOrders ] = useState([]);
-
   
   useEffect(() => {
     // if(getCookie('firebaseToken')){
@@ -25,6 +25,7 @@ const Dashboard = (props) => {
       sendFirebaseTokenToServer(firebaseToken);
     })
     .catch((err) => {
+      console.log("파이어베이스 토큰 요청 에러", err)
       return err;
     });
 

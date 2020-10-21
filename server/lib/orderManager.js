@@ -1,6 +1,6 @@
 const Orders = require('../models/orders.model');
-const { orderIdGenerator } = require('../lib/orderIdScheduler');
-const sendNotificationToClient = require('../lib/notify');
+const { orderIdGenerator } = require('./orderIdScheduler');
+const sendNotificationToClient = require('./notify');
 const FirebaseTokenStore = require('../models/firebase.model');
 
 

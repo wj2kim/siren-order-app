@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-
 /* body-parser 사용 */
 app.use(bodyParser.json());
 
