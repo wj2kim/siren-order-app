@@ -17,7 +17,7 @@ export function* signIn({ payload }) {
         return false;
     }
 
-    const requestURL = `${process.env.REACT_APP_API_URL}/login`;
+    const requestURL = `/login`;
 
     try {
         const response = yield call(request, requestURL, { email, password });
