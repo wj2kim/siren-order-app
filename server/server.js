@@ -61,9 +61,9 @@ app.get("*", (req, res) => {
     let path = req.params['0'].substring(1)
   
     if (protected.includes(path)) {
-      res.sendFile(`${__dirname}client/build/${path}`);
+      res.sendFile(`${__dirname}../client/build/${path}`);
     } else {
-      res.sendFile(`${__dirname}client/build/index.html`);
+      res.sendFile(`${__dirname}../client/build/index.html`);
     }
 });
 
