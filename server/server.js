@@ -57,17 +57,24 @@ app.use('/api/skill/', skillRouter);
 let protected = [];
 
 /* 클라이언트로 부터 받은 요청 페이지를 무조건 index.html로 반환해주는 설정 */
-if (process.env.NODE_ENV === 'production') {
-    app.get("*", (req, res) => {
+app.get("*", (req, res) => {
+    if( process.env.NODE_ENV === 'production' ){
         let path = req.params['0'].substring(1)
-      
+        
         if (protected.includes(path)) {
-          res.sendFile(`${__dirname}../client/build/${path}`);
+            res.sendFile(`${__dirname}../client/build/${path}`);
         } else {
-          res.sendFile(`${__dirname}../client/build/index.html`);
+            res.sendFile(`${__dirname}../client/build/index.html`);
         }
-    });
-}
+    }else{
+        /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
+        res.status(404).json({
+            success: false, 
+            message: "Page Not Found"
+        })
+    }
+});
+
 
 /* 주문번호 관리 스케쥴러 */
 const { executeScheduler } = require('./lib/orderIdScheduler');
