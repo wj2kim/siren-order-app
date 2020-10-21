@@ -46,12 +46,25 @@ app.use('/api/skill/', skillRouter);
 // const notificationRouter = require('./routes/notification.route')
 // app.use('/notification/', notificationRouter);
 
-app.use((req, res, next) => {
-    /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
-    res.status(404).json({
-        success: false, 
-        message: "Page Not Found"
-    })
+// app.use((req, res, next) => {
+//     /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
+//     res.status(404).json({
+//         success: false, 
+//         message: "Page Not Found"
+//     })
+// });
+
+let protected = [];
+
+/* 클라이언트로 부터 받은 요청 페이지를 무조건 index.html로 반환해주는 설정 */
+app.get("*", (req, res) => {
+    let path = req.params['0'].substring(1)
+  
+    if (protected.includes(path)) {
+      res.sendFile(`${__dirname}/build/${path}`);
+    } else {
+      res.sendFile(`${__dirname}/build/index.html`);
+    }
 });
 
 /* 주문번호 관리 스케쥴러 */
