@@ -54,18 +54,18 @@ app.use('/api/skill/', skillRouter);
 //     })
 // });
 
-let protected = [];
+// let protected = [];
 
 /* 클라이언트로 부터 받은 요청 페이지를 무조건 index.html로 반환해주는 설정 */
-app.get("*", (req, res) => {
-    let path = req.params['0'].substring(1)
+// app.get("*", (req, res) => {
+//     let path = req.params['0'].substring(1)
   
-    if (protected.includes(path)) {
-      res.sendFile(`${__dirname}../client/build/${path}`);
-    } else {
-      res.sendFile(`${__dirname}../client/build/index.html`);
-    }
-});
+//     if (protected.includes(path)) {
+//       res.sendFile(`${__dirname}../client/build/${path}`);
+//     } else {
+//       res.sendFile(`${__dirname}../client/build/index.html`);
+//     }
+// });
 
 /* 주문번호 관리 스케쥴러 */
 const { executeScheduler } = require('./lib/orderIdScheduler');
