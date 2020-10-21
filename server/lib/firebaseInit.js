@@ -15,6 +15,7 @@ const serviceAccount = {
                         "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7v2n4%40siren-order-4979c.iam.gserviceaccount.com"
                         }
 
+                        
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://siren-order-4979c.firebaseio.com",
