@@ -28,6 +28,10 @@ if(process.env.NODE_ENV === 'development'){
 
 if (process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
+
+    app.get("/*", function(req, res) {
+        res.sendFile(`client/build/index.html`);
+    });
 }
 
 /* 회원 관리 관련 라우터*/
@@ -57,23 +61,25 @@ app.use('/api/skill/', skillRouter);
 let protected = [];
 
 /* 클라이언트로 부터 받은 요청 페이지를 무조건 index.html로 반환해주는 설정 */
-app.get("*", (req, res) => {
-    if( process.env.NODE_ENV === 'production' ){
-        let path = req.params['0'].substring(1)
+// app.get("*", (req, res) => {
+//     let path = req.params['0'].substring(1)
+//     console.log("패뜨", path)
+//     console.log("패뜨", `${__dirname}../client/build/`);
+//     if( process.env.NODE_ENV === 'production' ){
         
-        if (protected.includes(path)) {
-            res.sendFile(`${__dirname}../client/build/${path}`);
-        } else {
-            res.sendFile(`${__dirname}../client/build/index.html`);
-        }
-    }else{
-        /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
-        res.status(404).json({
-            success: false, 
-            message: "Page Not Found"
-        })
-    }
-});
+//         if (protected.includes(path)) {
+//             res.sendFile(`${__dirname}../client/build/${path}`);
+//         } else {
+//             res.sendFile(`${__dirname}../client/build/index.html`);
+//         }
+//     }else{
+//         /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
+//         res.status(404).json({
+//             success: false, 
+//             message: "Page Not Found"
+//         })
+//     }
+// });
 
 
 /* 주문번호 관리 스케쥴러 */
