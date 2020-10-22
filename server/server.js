@@ -28,26 +28,15 @@ if(process.env.NODE_ENV === 'development'){
 
 }
 
+
 if (process.env.NODE_ENV === 'production'){
-    // app.use(express.static('client/build'));
     app.use(express.static('client/build'));
     
+    /* 클라이언트로 부터 받은 요청 페이지를 무조건 index.html로 반환해주는 설정 */
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-
-        // res.sendFile(path.join('client', 'build', 'index.html'));
     });
 }
-
-// app.get("/dashboard", (req, res) => {
-//     res.sendFile(`${__dirname}/client/build/index.html`);
-// 
-// app.use('/dashboard', express.static(__dirname + '/client/build/index.html'));
-
-
-// app.get('/dashboard', (req, res) => {
-//     res.sendFile(path.join(__dirname, '/client/build/index.html'));
-//   });
 
 /* 회원 관리 관련 라우터*/
 const authRouter = require('./routes/auth.route')
@@ -62,8 +51,6 @@ const skillRouter = require('./routes/skills.route')
 app.use('/api/skill/', skillRouter);
 
 /* 푸시 알람 관련 라우터*/
-// const notificationRouter = require('./routes/notification.route')
-// app.use('/notification/', notificationRouter);
 
 // app.use((req, res, next) => {
     /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */

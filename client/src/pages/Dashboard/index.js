@@ -10,8 +10,6 @@ import Orders from 'containers/Orders';
 import { requestFirebaseNotificationPermission } from 'utils/firebase-client';
 
 
-
-
 const Dashboard = (props) => {
   // const [ orders, setOrders ] = useState([]);
   

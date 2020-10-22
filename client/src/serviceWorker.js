@@ -1,7 +1,7 @@
 export const registerServiceWorker = () => {
     if('serviceWorker' in navigator) {
         navigator.serviceWorker
-        .register(`${ process.env.PUBLIC_URL}/fcm/firebase-messaging-sw.js`)
+        .register(`${ process.env.PUBLIC_URL}/firebase-messaging-sw.js`)
         .then(function(registration){
             console.log("serviceWorker registration 성공")
             return registration.scope;
