@@ -10,7 +10,7 @@ export function* signIn({ payload }) {
     /* 로딩 효과 처리 */
     yield delay(500);
     const { email, password } = payload;
-    console.log("payload", payload);
+    
     /* 혹시 모를 빈값 에러 처리 */
     if(!email || !password) {
         yield put(signInError(signInErrorType.VALIDATION_ERROR)) 

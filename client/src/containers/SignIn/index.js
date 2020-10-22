@@ -26,7 +26,6 @@ const SignIn = () => {
 
     const onSubmitForm = e => {
         e.preventDefault();
-        console.log("폼데이터",formData);
         const { userEmail : email, password } = formData;
         dispatch(signInRequest(email, password));
     }

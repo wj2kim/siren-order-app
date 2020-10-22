@@ -2,6 +2,10 @@ const FirebaseTokenStore = () => {
     let subscribers = [];
 
     return {
+        isExist(token){
+            return subscribers.includes(token);
+        }
+        ,
         insertOne(token){
             if(!subscribers.includes(token)){
                 subscribers.push(token);

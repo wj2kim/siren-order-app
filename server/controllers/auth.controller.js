@@ -118,15 +118,16 @@ exports.loginController = (req, res) => {
 }
 
 exports.registerClientTokenController = (req, res) => {
-    const result = FirebaseTokenStore.insertOne(req.body.firebaseToken);
-    console.log("등록 결과", result);
-    if(result){
-        return res.status(200).json({
-            message: '토큰 등록 성공',
-    });
+    const firebaseToken = req.body.firebaseToken
+    let message;
+    let result;
+    if(!FirebaseTokenStore.isExist(firebaseToken)){
+        result = FirebaseTokenStore.insertOne(firebaseToken);
+        message = '토큰 등록에 성공하였습니다.'
     }else{
-        return res.status(400).json({
-            message: '토큰 등록 실패',
-        });
+        message = '토큰이 이미 등록되어 있습니다.'
     }
+    return res.status(200).json({
+        message,
+    })
 }

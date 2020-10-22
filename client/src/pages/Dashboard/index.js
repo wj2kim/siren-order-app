@@ -14,9 +14,9 @@ const Dashboard = (props) => {
   // const [ orders, setOrders ] = useState([]);
   
   useEffect(() => {
-    // if(getCookie('firebaseToken')){
-    // return;
-    // }
+    if(getCookie('firebaseToken')){
+      return;
+    }
     requestFirebaseNotificationPermission()
     .then((firebaseToken) => {
       console.log("발급 받은 파이어베이스 토큰", firebaseToken);
