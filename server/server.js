@@ -60,7 +60,7 @@ app.use((req, res, next) => {
     /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
     res.status(404).json({
         success: false, 
-        message: `${__dirname}/client/build/index.html` + "   " + `${express.static('client/build/index.html')}`,
+        message: `${__dirname}/client/build/index.html+${express.static('client/build/index.html')}`,
     })
 });
 
