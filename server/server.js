@@ -31,9 +31,12 @@ if(process.env.NODE_ENV === 'development'){
 if (process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
 
-    app.get("*", function(req, res) {
-        res.sendFile(express.static('client/build/index.html'));
-    });
+    // app.get("*", function(req, res) {
+    //     res.sendFile(express.static('client/build/index.html'));
+    // });
+    app.use((req, res) => {
+        res.sendFile(`${__dirname}/client/build/index.html`);
+    })
 }
 
 /* 회원 관리 관련 라우터*/
