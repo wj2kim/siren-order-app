@@ -24,13 +24,15 @@ if(process.env.NODE_ENV === 'development'){
     /* 개발 모드 시, api 통신 로깅에 사용 할 모건 연동 */
     const morgan = require('morgan');
     app.use(morgan('dev'))
+
 }
+// console.log(`${__dirname}/client/build/index.html`)
 
 if (process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
 
-    app.get("/*", function(req, res) {
-        res.sendFile(`client/build/index.html`);
+    app.get("*", function(req, res) {
+        res.sendFile(express.static('client/build/index.html'));
     });
 }
 
@@ -58,7 +60,7 @@ app.use('/api/skill/', skillRouter);
 //     })
 // });
 
-let protected = [];
+// let protected = [];
 
 /* 클라이언트로 부터 받은 요청 페이지를 무조건 index.html로 반환해주는 설정 */
 // app.get("*", (req, res) => {
