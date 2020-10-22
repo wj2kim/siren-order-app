@@ -34,8 +34,10 @@ const Dashboard = (props) => {
         
       }catch(err){
         console.log("err",err)
-        if(err.response.status === 400){
-          console.log("서버에 토큰 전송 : ", err.response.data.message);
+        if(err.response){
+          if(err.response.status === 400){
+            console.log("서버에 토큰 전송 : ", err.response.data.message);
+          }
         }
       }
     }

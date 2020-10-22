@@ -124,7 +124,7 @@ exports.registerClientTokenController = (req, res) => {
 
     if(!firebaseToken){
         return res.status(400).json({
-            messsage: '적절하지 않은 토큰 값입니다.'
+            message: '적절하지 않은 토큰 값입니다.'
         })
     }
 
