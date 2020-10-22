@@ -34,10 +34,11 @@ if (process.env.NODE_ENV === 'production'){
     // app.get("*", function(req, res) {
     //     res.sendFile(express.static('client/build/index.html'));
     // });
-    app.get("*", (req, res) => {
-        res.sendFile(express.static('client/build/index.html'));
-    })
+    // app.get("*", (req, res) => {
+    //     res.sendFile(express.static('client/build/index.html'));
+    // })
 }
+app.use('/dashboard', express.static(__dirname + '/client/build/index.html'));
 
 /* 회원 관리 관련 라우터*/
 const authRouter = require('./routes/auth.route')
