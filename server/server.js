@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production'){
     //     res.sendFile(express.static('client/build/index.html'));
     // })
 }
-app.use('/dashboard', express.static(__dirname + '/client/build/index.html'));
+// app.use('/dashboard', express.static(__dirname + '/client/build/index.html'));
 
 /* 회원 관리 관련 라우터*/
 const authRouter = require('./routes/auth.route')
@@ -56,13 +56,13 @@ app.use('/api/skill/', skillRouter);
 // const notificationRouter = require('./routes/notification.route')
 // app.use('/notification/', notificationRouter);
 
-// app.use((req, res, next) => {
-//     /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
-//     res.status(404).json({
-//         success: false, 
-//         message: "Page Not Found"
-//     })
-// });
+app.use((req, res, next) => {
+    /* 404 Not Found - 서버가 요청받은 리소스를 찾을 수 없음. */
+    res.status(404).json({
+        success: false, 
+        message: `${__dirname}/client/build/index.html` + "   " + `${express.static('client/build/index.html')}`,
+    })
+});
 
 // let protected = [];
 
