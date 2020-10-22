@@ -30,7 +30,8 @@ if(process.env.NODE_ENV === 'development'){
 // console.log(`${__dirname}/client/build/index.html`)
 
 if (process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'));
+    // app.use(express.static('client/build'));
+    app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
     // app.get("*", function(req, res) {
@@ -41,9 +42,13 @@ if (process.env.NODE_ENV === 'production'){
 // })
 // app.use('/dashboard', express.static(__dirname + '/client/build/index.html'));
 
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/build/index.html'));
-  });
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+// app.get('/dashboard', (req, res) => {
+//     res.sendFile(path.join(__dirname, '/client/build/index.html'));
+//   });
 
 /* 회원 관리 관련 라우터*/
 const authRouter = require('./routes/auth.route')
