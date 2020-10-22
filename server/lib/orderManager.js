@@ -51,7 +51,7 @@ const manageOrder = ( body ) => {
                 title: `주문번호 [${orderId}]`,
                 body: `${drinkName}\n${cupCount}`,
             }
-            console.log("노티 알림", notificationData);
+            // console.log("노티 알림", notificationData);
             sendNotificationToClient(tokens, notificationData);
         }
         

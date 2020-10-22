@@ -14,18 +14,7 @@ const Dashboard = (props) => {
   // const [ orders, setOrders ] = useState([]);
   
   useEffect(() => {
-    if(getCookie('firebaseToken')){
-      return;
-    }
-    requestFirebaseNotificationPermission()
-    .then((firebaseToken) => {
-      console.log("발급 받은 파이어베이스 토큰", firebaseToken);
-      sendFirebaseTokenToServer(firebaseToken);
-    })
-    .catch((err) => {
-      console.log("파이어베이스 토큰 요청 에러", err)
-      return err;
-    });
+    let firebaseToken = getCookie('firebaseToken');
 
     const sendFirebaseTokenToServer = async ( firebaseToken ) => {
       const requestURL = `/registerClientToken`;
@@ -50,6 +39,19 @@ const Dashboard = (props) => {
         }
       }
     }
+
+    if(!firebaseToken){
+      requestFirebaseNotificationPermission()
+      .then((token) => {
+        firebaseToken = token;
+      })
+      .catch((err) => {
+        console.log("파이어베이스 토큰 요청 에러", err)
+        return err;
+      });
+    }
+
+    sendFirebaseTokenToServer(firebaseToken);
   },[]);
 
   return (

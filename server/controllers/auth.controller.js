@@ -121,6 +121,13 @@ exports.registerClientTokenController = (req, res) => {
     const firebaseToken = req.body.firebaseToken
     let message;
     let result;
+
+    if(!firebaseToken){
+        return res.status(400).json({
+            messsage: '적절하지 않은 토큰 값입니다.'
+        })
+    }
+
     if(!FirebaseTokenStore.isExist(firebaseToken)){
         result = FirebaseTokenStore.insertOne(firebaseToken);
         message = '토큰 등록에 성공하였습니다.'

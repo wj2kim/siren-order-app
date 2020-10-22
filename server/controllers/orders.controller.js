@@ -1,6 +1,7 @@
 const Orders = require('../models/orders.model');
 
 exports.selectOrdersController = (req, res) => {
+
     return res.status(200).json({
         orders : Orders.selectAll(),
     })
