@@ -42,18 +42,18 @@ const Dashboard = (props) => {
       }
     }
 
-    if(!firebaseToken){
+    if(!firebaseToken){ 
       requestFirebaseNotificationPermission()
       .then((token) => {
-        firebaseToken = token;
+        sendFirebaseTokenToServer(token);
       })
       .catch((err) => {
         console.log("파이어베이스 토큰 요청 에러", err)
         return err;
       });
+    }else{
+      sendFirebaseTokenToServer(firebaseToken);
     }
-
-    sendFirebaseTokenToServer(firebaseToken);
   },[]);
 
   return (
