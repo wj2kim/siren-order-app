@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'production'){
     //     res.sendFile(express.static('client/build/index.html'));
     // });
     app.get("*", (req, res) => {
-        res.sendFile(`${__dirname}/client/build/index.html`);
+        res.sendFile(express.static('client/build/index.html'));
     })
 }
 
