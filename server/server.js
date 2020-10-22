@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 
 /* body-parser 사용 */
@@ -35,10 +36,14 @@ if (process.env.NODE_ENV === 'production'){
     // app.get("*", function(req, res) {
     //     res.sendFile(express.static('client/build/index.html'));
     // });
-app.get("/dashboard", (req, res) => {
-    res.sendFile(`${__dirname}/client/build/index.html`);
-})
+// app.get("/dashboard", (req, res) => {
+//     res.sendFile(`${__dirname}/client/build/index.html`);
+// })
 // app.use('/dashboard', express.static(__dirname + '/client/build/index.html'));
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  });
 
 /* 회원 관리 관련 라우터*/
 const authRouter = require('./routes/auth.route')
