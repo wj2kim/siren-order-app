@@ -22,10 +22,7 @@ new Promise((resolve, reject) => {
     Notification
       .requestPermission()
       .then(() => messaging.getToken())
-      .then((firebaseToken) => {
-        console.log("resolve", firebaseToken)
-        // resolve(firebaseToken);
-      })
+      .then(firebaseToken => resolve(firebaseToken))
       .catch(reject);
   });
 
