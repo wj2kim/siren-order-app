@@ -84,7 +84,6 @@ const Orders = () => {
     }
 
     const handleFinished = (e, ids) => {
-        console.log("아이디스", ids);
         e.preventDefault();
         loadOrders(removeOrderURL, ids);
     }
