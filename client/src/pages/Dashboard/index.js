@@ -26,7 +26,6 @@ const Dashboard = (props) => {
       // }
       try {
         const response = await request(requestURL, { firebaseToken });
-        console.log("res", response);
         if(response.status === 200){
           setCookie("firebaseToken", firebaseToken, 1);
         }

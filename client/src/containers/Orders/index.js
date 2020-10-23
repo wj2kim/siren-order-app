@@ -33,7 +33,6 @@ const Orders = () => {
             }else{
                 response = await request(requestURL);
             }
-            console.log("loadOrders 리스폰스", response);
             if( response.status === 200 ){
                 if( response.data.orders.length ){
                     setOrderList(responseParser(response.data.orders));

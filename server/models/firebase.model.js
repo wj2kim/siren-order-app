@@ -1,27 +1,26 @@
 const FirebaseTokenStore = () => {
-    let subscribers = [];
+    let tokens = [];
 
     return {
         isExist(token){
-            return subscribers.includes(token);
+            return tokens.includes(token);
         }
         ,
         insertOne(token){
-            if(!subscribers.includes(token)){
-                subscribers.push(token);
-                console.log("subscribers", subscribers);
+            if(!tokens.includes(token)){
+                tokens.push(token);
                 return true;
             }
             return false;
         },
         selectAll(){
-            console.log(subscribers);
-            return [...subscribers];
+            console.log("토큰스", tokens);
+            return [...tokens];
         },
         removeOne(token){
-            if(subscribers.includes(token)){
-                subscribers.splice(subscribers.indexOf(token), 1);
-                console.log(subscribers);
+            if(tokens.includes(token)){
+                tokens.splice(tokens.indexOf(token), 1);
+                console.log(tokens);
                 return true;
             }
             return false;

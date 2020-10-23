@@ -1,6 +1,6 @@
 const Orders = require('../models/orders.model');
 const { orderIdGenerator } = require('./orderIdScheduler');
-const sendNotificationToClient = require('./notify');
+const { sendNotificationToClient } = require('./notify');
 const FirebaseTokenStore = require('../models/firebase.model');
 
 
@@ -52,7 +52,7 @@ const manageOrder = ( body ) => {
                 body: `${drinkName}\n${cupCount}`,
             }
             // console.log("노티 알림", notificationData);
-            sendNotificationToClient(tokens, notificationData);
+            sendNotificationToClient(notificationData, tokens);
         }
         
         console.log("오더 추가 하고 난 뒤 오더 목록", copiedOrderList);
