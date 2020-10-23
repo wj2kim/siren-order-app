@@ -13,7 +13,7 @@ const sendNotificationToClient = (data, tokens) => {
     }).catch(err => {
         console.log("구독자 알림 sending 에러", err);
     })
-}
+};
 
 const registerTopicSubscription = (tokens, topic) => {
     messaging
