@@ -16,8 +16,9 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-export const requestFirebaseNotificationPermission = () =>
+// messaging.usePublicVapidKey("BI-5g_wp0KVuVVS-EZN_FWWtyk-fBIsIL__2CteKwi7uvSynMESNTTsN6gSQu9FiTES64V2vJCF4_3glUlEL59M");
 
+export const requestFirebaseNotificationPermission = () =>
 new Promise((resolve, reject) => {
     Notification
       .requestPermission()
@@ -27,8 +28,10 @@ new Promise((resolve, reject) => {
   });
 
 export const onMessageListener = () =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     messaging.onMessage((payload) => {
+      console.log("받은 메시지", payload);
       resolve(payload);
     });
+    // reject(new Error('푸시 알림 실패'));
   });

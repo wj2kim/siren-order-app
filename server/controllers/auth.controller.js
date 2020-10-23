@@ -1,8 +1,9 @@
 const User = require('../models/auth.model');
-const FirebaseTokenStore = require('../models/firebase.model');
+// const FirebaseTokenStore = require('../models/firebase.model');
 // const expressJwt = require('express-jwt');
 // const _ = require('lodash');
 // const fetch = require('node-fetch');
+const { firebaseTokenHandler } = require('./token.controller');
 const { validationResult } = require('express-validator');
 
 /*
@@ -119,8 +120,7 @@ exports.loginController = (req, res) => {
 
 exports.registerClientTokenController = (req, res) => {
     const firebaseToken = req.body.firebaseToken
-    let message;
-    let result;
+    let message, result;
 
     if(!firebaseToken){
         return res.status(400).json({
@@ -128,8 +128,7 @@ exports.registerClientTokenController = (req, res) => {
         })
     }
 
-    if(!FirebaseTokenStore.isExist(firebaseToken)){
-        result = FirebaseTokenStore.insertOne(firebaseToken);
+    if(firebaseTokenHandler(firebaseToken)){
         message = '토큰 등록에 성공하였습니다.'
     }else{
         message = '토큰이 이미 등록되어 있습니다.'
