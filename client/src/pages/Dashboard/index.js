@@ -14,7 +14,8 @@ const Dashboard = (props) => {
   // const [ orders, setOrders ] = useState([]);
   
   useEffect(() => {
-    let firebaseToken = getCookie('firebaseToken');
+    // let firebaseToken = getCookie('firebaseToken');
+    let firebaseToken;
 
     const sendFirebaseTokenToServer = async ( firebaseToken ) => {
       const requestURL = `/registerClientToken`;
@@ -27,7 +28,7 @@ const Dashboard = (props) => {
       try {
         const response = await request(requestURL, { firebaseToken });
         if(response.status === 200){
-          setCookie("firebaseToken", firebaseToken, 1);
+          // setCookie("firebaseToken", firebaseToken, 1);
         }
         console.log("서버에 토큰 전송 : ", response.data.message);
         

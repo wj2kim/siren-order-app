@@ -47,12 +47,12 @@ const manageOrder = ( body ) => {
         const tokens = FirebaseTokenStore.selectAll();
         /* 구독하는 클라이언트에게 주문 알림 보냄 */
         if(tokens.length !== 0){
-            const data = {
+            const notificationData = {
                 title: `주문번호 [${orderId}]`,
                 body: `${drinkName}\n${cupCount}`,
             }
             // console.log("노티 알림", notificationData);
-            sendNotificationToClient(data, tokens);
+            sendNotificationToClient(tokens, notificationData);
         }
         
         console.log("오더 추가 하고 난 뒤 오더 목록", copiedOrderList);

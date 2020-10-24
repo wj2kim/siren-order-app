@@ -5,7 +5,8 @@ exports.firebaseTokenHandler = ( firebaseToken ) => {
     if(!FirebaseTokenStore.isExist(firebaseToken)){
         const tokens = FirebaseTokenStore.insertOne(firebaseToken) && FirebaseTokenStore.selectAll();
 
-        registerTopicSubscription(tokens, 'receiveOrders');
+        // console.log("토큰스", tokens);
+        // registerTopicSubscription(tokens, 'receiveOrders');
         return true;
     }else{
         return false;
