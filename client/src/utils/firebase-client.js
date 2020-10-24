@@ -16,8 +16,6 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-// messaging.usePublicVapidKey("BI-5g_wp0KVuVVS-EZN_FWWtyk-fBIsIL__2CteKwi7uvSynMESNTTsN6gSQu9FiTES64V2vJCF4_3glUlEL59M");
-
 export const requestFirebaseNotificationPermission = () =>
 new Promise((resolve, reject) => {
     Notification
