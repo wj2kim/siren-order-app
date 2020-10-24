@@ -3,6 +3,7 @@
 
 config.env
 serviceAccountKey.json
+serviceAccount.json
 
 .DS_Store
 
