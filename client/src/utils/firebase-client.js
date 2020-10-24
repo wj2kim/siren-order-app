@@ -9,7 +9,6 @@ const firebaseConfig = {
     storageBucket: "siren-order-4979c.appspot.com",
     messagingSenderId: "960085631910",
     appId: "1:960085631910:web:fa08ee92d81731b7406567",
-    measurementId: "G-TY8MS4TLFF"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -26,7 +25,7 @@ new Promise((resolve, reject) => {
   });
 
 export const onMessageListener = () =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     messaging.onMessage((payload) => {
       console.log("받은 메시지", payload);
       resolve(payload);

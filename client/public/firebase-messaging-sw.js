@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/7.24.0/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js');
 
 const firebaseConfig = {
     apiKey: "AIzaSyCNWa0vmmdN4L5DqKhJ-onq6uaLgBS2msU",
@@ -9,7 +9,6 @@ const firebaseConfig = {
     storageBucket: "siren-order-4979c.appspot.com",
     messagingSenderId: "960085631910",
     appId: "1:960085631910:web:fa08ee92d81731b7406567",
-    measurementId: "G-TY8MS4TLFF"
 }
 
 firebase.initializeApp(firebaseConfig);
