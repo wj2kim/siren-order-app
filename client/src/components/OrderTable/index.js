@@ -2,6 +2,7 @@ import React , { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -50,6 +51,7 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: 'orderId', label: '주문번호' },
+  { id: 'userKey', label: '주문자' },
   { id: 'orderTime', label: '주문시간' },
   { id: 'drinkName', label: '종류' },
   { id: 'cupCount', label: '수량' },
@@ -67,7 +69,6 @@ function EnhancedTableHead(props) {
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
-            // color={'primary'}
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
@@ -305,6 +306,13 @@ const OrderTable = ({ orderList, handleFinished}) => {
                       </TableCell>
                       <TableCell align="center" component="th" id={labelId} scope="row" padding="none">
                         {n.orderId}
+                      </TableCell>
+                      <TableCell align="center">
+                         <Tooltip title="userKey">
+                          <IconButton aria-label="Account" style={{ padding: "2px" }}>
+                            <AccountCircleIcon style={{ fontSize: 30 }}/>
+                          </IconButton>
+                        </Tooltip>
                       </TableCell>
                       <TableCell align="center">{n.date}</TableCell>
                       <TableCell align="center">{n.drinkName}</TableCell>
