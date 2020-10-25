@@ -2,7 +2,13 @@ import React , { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ScheduleOutlinedIcon from '@material-ui/icons/ScheduleOutlined';
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange } from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -187,6 +193,16 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 550,
   },
+  userKeyRoot: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  userKeySquare: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
   visuallyHidden: {
     border: 0,
     clip: 'rect(0 0 0 0)',
@@ -197,6 +213,12 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },
+  orderIdBackground: {
+    margin: '0 15rem',
+    padding: '2px',
+    fontSize: '1.2rem',
+    border: '1px solid #a9a9a9',
   },
 }));
 
@@ -299,22 +321,33 @@ const OrderTable = ({ orderList, handleFinished}) => {
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
-                          // color={'primary'}
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
                       <TableCell align="center" component="th" id={labelId} scope="row" padding="none">
-                        {n.orderId}
+                        {/* <InputIcon label={n.orderId}/> */}
+                        <div className={classes.orderIdBackground}>{n.orderId}</div>
                       </TableCell>
                       <TableCell align="center">
-                         <Tooltip title="userKey">
-                          <IconButton aria-label="Account" style={{ padding: "2px" }}>
-                            <AccountCircleIcon style={{ fontSize: 30 }}/>
-                          </IconButton>
-                        </Tooltip>
+                        <div className={classes.userKeyRoot} style={{ justifyContent: 'center' }}>
+                          <Tooltip title={ n.userKey }>
+                            <IconButton aria-label="Account" style={{ padding: "2px", margin: 0 }}>
+                              <Avatar className={classes.userKeySquare} style={{ margin: 0 }}>
+                                {n.userKey}
+                              </Avatar>
+                            </IconButton>
+                          </Tooltip>
+                        </div>
                       </TableCell>
-                      <TableCell align="center">{n.date}</TableCell>
+                      <TableCell align="center">
+                        <ListItem>
+                          <ListItemIcon style={{ justifyContent: 'center', minWidth:'40px'}}>
+                            <ScheduleOutlinedIcon />
+                          </ListItemIcon >
+                          <ListItemText primary={n.date} />
+                        </ListItem>
+                      </TableCell>
                       <TableCell align="center">{n.drinkName}</TableCell>
                       <TableCell align="center">{n.cupCount}</TableCell>
                       <TableCell align="center">{n.timeInMs}</TableCell>
