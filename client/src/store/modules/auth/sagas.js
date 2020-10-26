@@ -52,10 +52,6 @@ export function setToken({ payload }) {
     }
 }
 
-// const forwardTo = (location) => {
-//     browserHistory.push(location);
-// }
-
 export function* signOut() {
     yield delay(300);
     yield history.push('/');
