@@ -24,9 +24,6 @@ const FirebaseTokenStore = () => {
                 return true;
             }
             return false;
-            // const idx = subscribers.findIndex((subscriber) => subscriber.token === token);
-            // if(idx > -1) subscribers.splice( idx, 1);
-            // return [...subscribers];
         }
     }
 }
