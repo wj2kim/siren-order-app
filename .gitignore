@@ -2,7 +2,7 @@
 /build
 
 config.env
-serviceAccountKey.json
+# serviceAccountKey.json
 serviceAccount.json
 
 .DS_Store
