@@ -138,7 +138,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { IdSelected , handleFinished, resetSelection} = props;
+  const { IdSelected , handleFinished, resetSelection, orderListLength } = props;
   const numSelected = IdSelected.length;
 
   return (
@@ -164,7 +164,7 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="커피 제조중...">
+        <Tooltip title={orderListLength > 0 ? '커피 제조중...' : '주문 대기중...'}>
           <IconButton aria-label="coffee-icon">
             <FreeBreakfastIcon />
           </IconButton>
@@ -177,6 +177,7 @@ const EnhancedTableToolbar = (props) => {
 EnhancedTableToolbar.propTypes = {
   IdSelected: PropTypes.array.isRequired,
   numSelected: PropTypes.number,
+  orderListLength: PropTypes.number,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -215,7 +216,7 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   orderIdBackground: {
-    margin: '0 15rem',
+    margin: '0 1.7rem',
     padding: '2px',
     fontSize: '1.2rem',
     border: '1px solid #a9a9a9',
@@ -285,7 +286,7 @@ const OrderTable = ({ orderList, handleFinished}) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar IdSelected={selected} handleFinished={handleFinished} resetSelection={resetSelection}/>
+        <EnhancedTableToolbar orderListLength={orderList.length} IdSelected={selected} handleFinished={handleFinished} resetSelection={resetSelection}/>
         <TableContainer>
           <Table
             className={classes.table}
