@@ -5,7 +5,7 @@ import { PageWrapper } from 'components/PageWrapper';
 import { request, api } from 'utils/api';
 import { ToastContainer } from 'react-toastify';
 import { setCookie, getCookie } from 'utils/cookie';
-
+import Announce from 'containers/Announce';
 import Orders from 'containers/Orders';
 import { requestFirebaseNotificationPermission } from 'utils/firebase-client';
 
@@ -77,6 +77,7 @@ const Dashboard = (props) => {
       <PageWrapper>
         <div>
           <div className="page-content" >
+              <Announce />
               <Orders />
           </div>
         </div>
