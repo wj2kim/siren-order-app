@@ -2,11 +2,12 @@ import React , { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
-// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ScheduleOutlinedIcon from '@material-ui/icons/ScheduleOutlined';
+import FreeBreakfastOutlinedIcon from '@material-ui/icons/FreeBreakfastOutlined';
+import AlternateEmailOutlinedIcon from '@material-ui/icons/AlternateEmailOutlined';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange } from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
@@ -218,7 +219,9 @@ const useStyles = makeStyles((theme) => ({
   orderIdBackground: {
     margin: '0 1.7rem',
     padding: '2px',
-    fontSize: '1.2rem',
+    fontWeight: 700,
+    fontSize: '0.95rem',
+    color: '#4b493e',
     border: '1px solid #a9a9a9',
   },
 }));
@@ -342,15 +345,28 @@ const OrderTable = ({ orderList, handleFinished}) => {
                         </div>
                       </TableCell>
                       <TableCell align="center">
-                        <ListItem>
-                          <ListItemIcon style={{ justifyContent: 'center', minWidth:'40px'}}>
+                        <ListItem >
+                          <ListItemIcon style={{ justifyContent: 'center', minWidth:'37px'}}>
                             <ScheduleOutlinedIcon />
                           </ListItemIcon >
-                          <ListItemText primary={n.date} />
+                          <ListItemText>
+                            <div style={{ fontSize:'0.85rem', fontWeight:400, color:'#4b493e'}}>{n.date}</div>
+                          </ListItemText>
                         </ListItem>
                       </TableCell>
-                      <TableCell align="center">{n.drinkName}</TableCell>
-                      <TableCell align="center">{n.cupCount}</TableCell>
+                      <TableCell align="center">
+                        <ListItem >
+                          <ListItemIcon style={{ justifyContent: 'center', minWidth:'37px'}}>
+                            <FreeBreakfastOutlinedIcon />
+                          </ListItemIcon >
+                          <ListItemText>
+                            <div style={{ fontSize:'0.9rem', color:'#4b493e'}}>{n.drinkName}</div>
+                          </ListItemText>
+                        </ListItem>
+                      </TableCell>
+                      <TableCell align="center">
+                        <div style={{ fontSize:'0.9rem', color:'#4b493e'}}>{n.cupCount} 잔</div>
+                      </TableCell>
                       <TableCell align="center">{n.timeInMs}</TableCell>
                     </TableRow>
                   );

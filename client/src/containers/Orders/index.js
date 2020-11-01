@@ -68,7 +68,7 @@ const Orders = () => {
         const data = orderList.map( order => {
             return {
                 ...order,
-                date: format(parseJSON(order.timeInMs), "yyyy-MM-dd a p:ss", {
+                date: format(parseJSON(order.timeInMs), "yyyy-MM-dd p:ss", {
                     locale: ko,
                 })
             }
@@ -105,7 +105,7 @@ const Orders = () => {
         })
 
     return(
-        <div className="orders-wrapper" style={{ marginTop:'6rem'}}>
+        <div className="orders-wrapper" style={{ marginTop:'2rem', marginBottom:'4rem'}}>
             { alert.message && <Alert severity={
                 verifyAlertCode(alert.code)
                 }>{alert.message}</Alert> }
