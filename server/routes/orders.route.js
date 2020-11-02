@@ -5,10 +5,14 @@ const router = express.Router();
 const {
     selectOrdersController,
     removeOrderController,
+    selectAnnouncementController,
+    replaceAnnouncementController,
 } = require('../controllers/orders.controller.js');
 
 
 router.post('/selectOrders', selectOrdersController);
 router.post('/removeOrder', removeOrderController);
+router.post('/selectAnnouncement', selectAnnouncementController);
+router.post('/replaceAnnouncement', replaceAnnouncementController);
 
 module.exports = router;
