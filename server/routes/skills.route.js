@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const manageOrder = require('../lib/orderManager');
+const announcementStore = require('../models/announcement.model');
 // const { orderIdGenerator } = require('../lib/orderIdScheduler');
 
 // const orderIdGenerator = OrderIdGenerator();
@@ -14,8 +15,10 @@ const manageOrder = require('../lib/orderManager');
 // } = require('../controllers/orders.controller.js');
 
 router.post('/announcement', function(req, res) {
-    let responseText = "";
-    responseText = "공지\n\n💡오늘은 카페 공사 일정으로 인해 4시에 마감합니다.\n";
+
+    const announcement = announcementStore.selectAnnouncement();
+
+    const responseText = `공지\n\n💡${announcement}\n`;
 
     const response = {
         version: "2.0",
@@ -27,7 +30,6 @@ router.post('/announcement', function(req, res) {
                     },
                 },
                 {
-
                     "carousel": {
                         "type": "basicCard",
                         "items": [
@@ -68,6 +70,39 @@ router.post('/announcement', function(req, res) {
     res.status(200).send(response);
 });
 
+router.post('/orderConfirm', function(req, res) {
+    const { drinkName, cupCount } = req.body.action.params;
+
+    responseText = `🆕 음료바구니\n--------------\n${drinkName} ${cupCount}잔`;
+
+    const response = {
+        version: "2.0",
+        template: {
+            outputs: [
+                {
+                    simpleText: {
+                        text: responseText,
+                    },
+                }
+            ],
+            "quickReplies": [
+                {
+                    "label":"주문완료",
+                    "action":"message",
+                    "messageText":"주문완료"
+                },
+                {
+                    "label":"처음으로",
+                    "action":"message",
+                    "messageText":"처음으로"
+                },
+            ]
+        }
+    }
+
+    res.status(200).send(response);
+})
+
 
 router.post('/order', function(req, res) {
     let responseText = "";
@@ -75,7 +110,7 @@ router.post('/order', function(req, res) {
 
     if(orderForm){
         const { orderId, drinkName, cupCount } = orderForm;
-        responseText = `✅ 주문이 완료되었어요.\n\n주문번호 [${orderId}]\n음료가 준비되면 알려드릴게요 😉\n\n주문 내역\n-------------\n${drinkName} ${cupCount}잔`
+        responseText = `✅ 주문이 완료되었어요.\n\n주문번호 [${orderId}]\n음료가 준비되면 알려드릴게요 😉\n\n주문 내역\n--------------\n${drinkName} ${cupCount}잔`
     }else{
         responseText = `❌ 주문이 완료되지 못했어요. \n\n다시 한번 주문해주세요 😧`
     }
@@ -88,8 +123,8 @@ router.post('/order', function(req, res) {
                     simpleText: {
                         text: responseText,
                     }
-                }
-            ]
+                },
+            ],
         }
     }
     res.status(200).send(response);
