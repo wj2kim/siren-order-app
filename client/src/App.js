@@ -11,7 +11,7 @@ import { ThemeProvider } from 'styles/theme/ThemeProvider';
 import { LoadingIndicator } from 'components/LoadingIndicator/index';
 
 
-import 'locales/i18n';
+// import 'locales/i18n';
 
 import FontFaceObserver from 'fontfaceobserver';
 

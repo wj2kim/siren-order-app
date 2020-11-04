@@ -1,5 +1,5 @@
 const Announcement = () => {
-    let announcement = '아메리카노 좋아 좋아 좋아'
+    let announcement = '오늘은 5시 마감입니다.'
     return {
         selectAnnouncement() {
             return announcement;

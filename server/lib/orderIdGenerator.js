@@ -2,10 +2,10 @@
  * 주문 ID 생성 함수 ( 매일 11시 59분에 1번으로 초기화 됨)
  */
 const OrderIdGenerator = () => {
-    let orderId = 1;
+    let orderId = 4;
     return {
         resetOrderId() {
-            orderId = 1;
+            orderId = 4;
             return;
         },
         getOrderId() {
