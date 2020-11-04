@@ -156,12 +156,12 @@ router.post('/menu', function(req, res) {
                     },
                     {
                         "title": "카페 라떼",
-                        "description": "달콤 고소한 커피 끝판왕",
+                        "description": "달콤 고소 커피 끝판왕",
                         "imageUrl": "https://globalassets.starbucks.com/assets/f9ad475efabb455887649f7dd453a90d.jpg?impolicy=1by1_wide_1242",
                     },
                     {
                         "title": "카페 모카",
-                        "description": "오늘은 단게 땡긴다면",
+                        "description": "단게 땡긴다면",
                         "imageUrl": "https://globalassets.starbucks.com/assets/b308aad1127843c5b6e1390bd87a669e.jpg?impolicy=1by1_wide_1242",
                         "link": {
                         "web": "https://namu.wiki/w/%EC%96%B4%ED%94%BC%EC%B9%98"

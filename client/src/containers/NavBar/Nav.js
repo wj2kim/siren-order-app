@@ -9,16 +9,17 @@ export function Nav() {
       <Item
         href=""
         target="_blank"
-        title="준비 중"
+        title="설명 준비 중"
         rel="noopener noreferrer"
       >
         <DocumentationIcon />
         Documentation
       </Item>
       <Item
-        href="https://github.com/wj2kim/siren-order-app"
+        // href="https://github.com/wj2kim/siren-order-app"
+        href=""
         target="_blank"
-        title="소스 코드"
+        title="소스 코드 준비 중"
         rel="noopener noreferrer"
       >
         <GithubIcon />
