@@ -1,1 +1,1 @@
-Siren-Order-App client web for admin
+The siren order application admin web page. 
