@@ -9,20 +9,6 @@ const Button = (props) => {
         </button>
      );
 
-    // let button = (
-    //     <A href={props.href} onClick={props.onClick}>
-    //       {Children.toArray(props.children)}
-    //     </A>
-    // );
-
-    // if (props.handleRoute) {
-    //     button = (
-    //       <StyledButton onClick={props.handleRoute}>
-    //         {Children.toArray(props.children)}
-    //       </StyledButton>
-    //     );
-    // }
-
     return <Wrapper>{ button }</Wrapper>
 }
 

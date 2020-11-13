@@ -19,33 +19,6 @@ export default function Header() {
     </Wrapper>
   );
 }
-//   return (
-//     <Container>
-//       <Content>
-//         <Link to="/">
-//           <nav>
-//             {/* <img src={logo} alt="Meetapp" /> */}
-//             LOGO
-//           </nav>
-//         </Link>
-
-//         <aside>
-//           <Profile>
-//             <div>
-//               <strong>{name}</strong>
-//               <Link to="/profile">프로필</Link>
-//             </div>
-//             <button type="submit" onClick={handleSignOut}>
-//               Sair
-//             </button>
-//           </Profile>
-//         </aside>
-//       </Content>
-//     </Container>
-//   );
-// }
-
-
 
 const Wrapper = styled.header`
   box-shadow: 0 1px 0 0 ${p => p.theme.borderLight};

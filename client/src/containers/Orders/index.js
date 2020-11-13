@@ -5,7 +5,6 @@ import { format, parseJSON } from 'date-fns';
 import { onMessageListener } from 'utils/firebase-client';
 import { toast } from 'react-toastify';
 import Alert from '@material-ui/lab/Alert';
-// import Order from 'components/Order';
 import OrderTable from 'components/OrderTable';
 import 'react-toastify/dist/ReactToastify.css';
 
